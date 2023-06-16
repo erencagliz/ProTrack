@@ -97,4 +97,8 @@ return [
         'title' => 'Primlerim Görüntüleme Yetkisi',
         'description' => 'Primlerim sayfasını görüntüleme yetkisini barındırır.',
     ],
+    'add_event_to_calendar' => [
+        'title' => 'Takvim Ekleme Yetkisi',
+        'description' => 'Takvime ekleme yetkisini barındırır.',
+    ],
 ];

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+cache()->flush();
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -757,172 +757,349 @@ License: For each use you must have a valid license purchased only from above li
             },
             @endforeach
         ],
-        eventDrop: function (args) {
-            var new_start_date = moment(args.event.start).format("YYYY-MM-DD");
-            var new_end_date = moment(args.event.end).format("YYYY-MM-DD");
-            var new_start_time = moment(args.event.start).format("HH:mm:ss");
-            var new_end_time = moment(args.event.end).format("HH:mm:ss");
-            $.ajax({
-                url: "{{ route('calendar.drag_post') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id: args.event.id,
-                    start_date: new_start_date,
-                    end_date: new_end_date,
-                    start_time: new_start_time,
-                    end_time: new_end_time
-                },
-                success: function (data) {
-                    if (data.status == "success") {
-                        toastr.success('Takvim başarıyla güncellendi.');
-                    } else {
-                        toastr.error('Takvim güncellenemedi.');
-                    }
-                }
-            });
-        },
-        eventResize: function (args) {
-            var new_start_date = moment(args.event.start).format("YYYY-MM-DD");
-            var new_end_date = moment(args.event.end).format("YYYY-MM-DD");
-            var new_start_time = moment(args.event.start).format("HH:mm:ss");
-            var new_end_time = moment(args.event.end).format("HH:mm:ss");
-            $.ajax({
-                url: "{{ route('calendar.resize_post') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id: args.event.id,
-                    start_date: new_start_date,
-                    end_date: new_end_date,
-                    start_time: new_start_time,
-                    end_time: new_end_time
-                },
-                success: function (data) {
-                    if (data.status == "success") {
-                        toastr.success('Takvim başarıyla güncellendi.');
-                    } else {
-                        toastr.error('Takvim güncellenemedi.');
-                    }
-                }
-            });
-
-        },
-        eventClick: function (args) {
-            if (args.event.extendedProps.type === 'birthday') {
-            } else if (args.event.extendedProps.type === 'offday') {
-                Swal.fire({
-                    buttonsStyling: false,
-                    showCancelButton: true,
-                    confirmButtonText: "Düzenle",
-                    cancelButtonText: 'Sil',
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                        cancelButton: 'btn btn-danger'
-                    }
-                }).then(function (confirm) {
-                    if (confirm.value) {
-                        window.location.href = args.event.extendedProps.href;
-                    } else if (confirm.dismiss === swal.DismissReason.cancel) {
-                        Swal.fire({
-                            html: `Silmek istediğinize emin misiniz? Bu işlemi geri alamazsınız.`,
-                            icon: "error",
-                            buttonsStyling: false,
-                            showCancelButton: true,
-                            confirmButtonText: "Evet, eminim.",
-                            cancelButtonText: 'Hayır, vazgeçtim.',
-                            customClass: {
-                                confirmButton: "btn btn-primary",
-                                cancelButton: 'btn btn-danger'
-                            }
-                        }).then(function (confirm) {
-                            if (confirm.value) {
-                                $.ajax({
-                                    url: "{{ route('offdays.details.delete') }}/" + args.event.id,
-                                    type: "GET",
-                                    data: {
-                                        _token: "{{ csrf_token() }}",
-                                    },
-                                    success: function (data) {
-                                        args.event.remove();
-                                        toastr.success('İzin başarıyla silindi.');
-                                    }
-                                });
+        @php $perms = tr_group_permission(tr_user_details(null, 'group_id')) @endphp
+        @foreach(json_decode($perms, true) as $key2 => $value2)
+            @if($key2 == "add_event_to_calendar")
+                @if($value2 == true)
+                    eventDrop: function (args) {
+                        var new_start_date = moment(args.event.start).format("YYYY-MM-DD");
+                        var new_end_date = moment(args.event.end).format("YYYY-MM-DD");
+                        var new_start_time = moment(args.event.start).format("HH:mm:ss");
+                        var new_end_time = moment(args.event.end).format("HH:mm:ss");
+                        $.ajax({
+                            url: "{{ route('calendar.drag_post') }}",
+                            type: "POST",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                id: args.event.id,
+                                start_date: new_start_date,
+                                end_date: new_end_date,
+                                start_time: new_start_time,
+                                end_time: new_end_time
+                            },
+                            success: function (data) {
+                                if (data.status == "success") {
+                                    toastr.success('Takvim başarıyla güncellendi.');
+                                } else {
+                                    toastr.error('Takvim güncellenemedi.');
+                                }
                             }
                         });
-                    }
-                });
-            } else {
-                Swal.fire({
-                    buttonsStyling: false,
-                    showCancelButton: true,
-                    confirmButtonText: "Düzenle",
-                    cancelButtonText: 'Sil',
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                        cancelButton: 'btn btn-danger'
-                    }
-                }).then(function (confirm) {
-                    if (confirm.value) {
-                        // kt_modal_edit_event modal show and fill inputs
-                        $('#'+args.event.extendedProps.modal).modal('show');
-
-                    } else if (confirm.dismiss === swal.DismissReason.cancel) {
-                        Swal.fire({
-                            html: `Silmek istediğinize emin misiniz? Bu işlemi geri alamazsınız.`,
-                            icon: "error",
-                            buttonsStyling: false,
-                            showCancelButton: true,
-                            confirmButtonText: "Evet, eminim.",
-                            cancelButtonText: 'Hayır, vazgeçtim.',
-                            customClass: {
-                                confirmButton: "btn btn-primary",
-                                cancelButton: 'btn btn-danger'
+                    },
+                    eventResize: function (args) {
+                        var new_start_date = moment(args.event.start).format("YYYY-MM-DD");
+                        var new_end_date = moment(args.event.end).format("YYYY-MM-DD");
+                        var new_start_time = moment(args.event.start).format("HH:mm:ss");
+                        var new_end_time = moment(args.event.end).format("HH:mm:ss");
+                        $.ajax({
+                            url: "{{ route('calendar.resize_post') }}",
+                            type: "POST",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                id: args.event.id,
+                                start_date: new_start_date,
+                                end_date: new_end_date,
+                                start_time: new_start_time,
+                                end_time: new_end_time
+                            },
+                            success: function (data) {
+                                if (data.status == "success") {
+                                    toastr.success('Takvim başarıyla güncellendi.');
+                                } else {
+                                    toastr.error('Takvim güncellenemedi.');
+                                }
                             }
-                        }).then(function (confirm) {
-                            if (confirm.value) {
-                                $.ajax({
-                                    url: "{{ route('calendar.remove_post') }}",
-                                    type: "POST",
-                                    data: {
-                                        _token: "{{ csrf_token() }}",
-                                        id: args.event.id
-                                    },
-                                    success: function (data) {
-                                        if (data.status == "success") {
-                                            args.event.remove();
-                                            toastr.success('Takvim başarıyla silindi.');
-                                        } else {
-                                            toastr.error('Takvim silinemedi.');
+                        });
+
+                    },
+                    eventClick: function (args) {
+                        if (args.event.extendedProps.type === 'birthday') {
+                        } else if (args.event.extendedProps.type === 'offday') {
+                            Swal.fire({
+                                buttonsStyling: false,
+                                showCancelButton: true,
+                                confirmButtonText: "Düzenle",
+                                cancelButtonText: 'Sil',
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                    cancelButton: 'btn btn-danger'
+                                }
+                            }).then(function (confirm) {
+                                if (confirm.value) {
+                                    window.location.href = args.event.extendedProps.href;
+                                } else if (confirm.dismiss === swal.DismissReason.cancel) {
+                                    Swal.fire({
+                                        html: `Silmek istediğinize emin misiniz? Bu işlemi geri alamazsınız.`,
+                                        icon: "error",
+                                        buttonsStyling: false,
+                                        showCancelButton: true,
+                                        confirmButtonText: "Evet, eminim.",
+                                        cancelButtonText: 'Hayır, vazgeçtim.',
+                                        customClass: {
+                                            confirmButton: "btn btn-primary",
+                                            cancelButton: 'btn btn-danger'
                                         }
+                                    }).then(function (confirm) {
+                                        if (confirm.value) {
+                                            $.ajax({
+                                                url: "{{ route('offdays.details.delete') }}/" + args.event.id,
+                                                type: "GET",
+                                                data: {
+                                                    _token: "{{ csrf_token() }}",
+                                                },
+                                                success: function (data) {
+                                                    args.event.remove();
+                                                    toastr.success('İzin başarıyla silindi.');
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                buttonsStyling: false,
+                                showCancelButton: true,
+                                confirmButtonText: "Düzenle",
+                                cancelButtonText: 'Sil',
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                    cancelButton: 'btn btn-danger'
+                                }
+                            }).then(function (confirm) {
+                                if (confirm.value) {
+                                    // kt_modal_edit_event modal show and fill inputs
+                                    $('#'+args.event.extendedProps.modal).modal('show');
+
+                                } else if (confirm.dismiss === swal.DismissReason.cancel) {
+                                    Swal.fire({
+                                        html: `Silmek istediğinize emin misiniz? Bu işlemi geri alamazsınız.`,
+                                        icon: "error",
+                                        buttonsStyling: false,
+                                        showCancelButton: true,
+                                        confirmButtonText: "Evet, eminim.",
+                                        cancelButtonText: 'Hayır, vazgeçtim.',
+                                        customClass: {
+                                            confirmButton: "btn btn-primary",
+                                            cancelButton: 'btn btn-danger'
+                                        }
+                                    }).then(function (confirm) {
+                                        if (confirm.value) {
+                                            $.ajax({
+                                                url: "{{ route('calendar.remove_post') }}",
+                                                type: "POST",
+                                                data: {
+                                                    _token: "{{ csrf_token() }}",
+                                                    id: args.event.id
+                                                },
+                                                success: function (data) {
+                                                    if (data.status == "success") {
+                                                        args.event.remove();
+                                                        toastr.success('Takvim başarıyla silindi.');
+                                                    } else {
+                                                        toastr.error('Takvim silinemedi.');
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+
+                        }
+                    },
+                    dateClick: function(info) {
+                        $('#kt_modal_add_event_form').trigger("reset");
+                        var date = moment(info.date).format('YYYY-MM-DD');
+                        $('#kt_modal_add_event').modal('show');
+                        $('input[name=calendar_event_start_date]').val(date);
+                    },
+                    select: function(info) {
+                        $('#kt_modal_add_event_form').trigger("reset");
+                        var start_date = moment(info.start).format('YYYY-MM-DD');
+                        var start_time = moment(info.start).format('HH:mm:ss');
+                        var end_date = moment(info.end).format('YYYY-MM-DD');
+                        var end_time = moment(info.end).format('HH:mm:ss');
+                        $('#kt_modal_add_event').modal('show');
+                        $('input[name=calendar_event_start_date]').val(start_date);
+                        $('input[name=calendar_event_start_time]').val(start_time);
+                        $('input[name=calendar_event_end_date]').val(end_date);
+                        $('input[name=calendar_event_end_time]').val(end_time);
+                    },
+                    eventOrder: 'sayi,start',
+                @else
+                    @if(tr_user_permission_check(null, "add_event_to_calendar") == true)
+                        eventDrop: function (args) {
+                            var new_start_date = moment(args.event.start).format("YYYY-MM-DD");
+                            var new_end_date = moment(args.event.end).format("YYYY-MM-DD");
+                            var new_start_time = moment(args.event.start).format("HH:mm:ss");
+                            var new_end_time = moment(args.event.end).format("HH:mm:ss");
+                            $.ajax({
+                                url: "{{ route('calendar.drag_post') }}",
+                                type: "POST",
+                                data: {
+                                    _token: "{{ csrf_token() }}",
+                                    id: args.event.id,
+                                    start_date: new_start_date,
+                                    end_date: new_end_date,
+                                    start_time: new_start_time,
+                                    end_time: new_end_time
+                                },
+                                success: function (data) {
+                                    if (data.status == "success") {
+                                        toastr.success('Takvim başarıyla güncellendi.');
+                                    } else {
+                                        toastr.error('Takvim güncellenemedi.');
+                                    }
+                                }
+                            });
+                        },
+                        eventResize: function (args) {
+                            var new_start_date = moment(args.event.start).format("YYYY-MM-DD");
+                            var new_end_date = moment(args.event.end).format("YYYY-MM-DD");
+                            var new_start_time = moment(args.event.start).format("HH:mm:ss");
+                            var new_end_time = moment(args.event.end).format("HH:mm:ss");
+                            $.ajax({
+                                url: "{{ route('calendar.resize_post') }}",
+                                type: "POST",
+                                data: {
+                                    _token: "{{ csrf_token() }}",
+                                    id: args.event.id,
+                                    start_date: new_start_date,
+                                    end_date: new_end_date,
+                                    start_time: new_start_time,
+                                    end_time: new_end_time
+                                },
+                                success: function (data) {
+                                    if (data.status == "success") {
+                                        toastr.success('Takvim başarıyla güncellendi.');
+                                    } else {
+                                        toastr.error('Takvim güncellenemedi.');
+                                    }
+                                }
+                            });
+
+                        },
+                        eventClick: function (args) {
+                            if (args.event.extendedProps.type === 'birthday') {
+                            } else if (args.event.extendedProps.type === 'offday') {
+                                Swal.fire({
+                                    buttonsStyling: false,
+                                    showCancelButton: true,
+                                    confirmButtonText: "Düzenle",
+                                    cancelButtonText: 'Sil',
+                                    customClass: {
+                                        confirmButton: "btn btn-primary",
+                                        cancelButton: 'btn btn-danger'
+                                    }
+                                }).then(function (confirm) {
+                                    if (confirm.value) {
+                                        window.location.href = args.event.extendedProps.href;
+                                    } else if (confirm.dismiss === swal.DismissReason.cancel) {
+                                        Swal.fire({
+                                            html: `Silmek istediğinize emin misiniz? Bu işlemi geri alamazsınız.`,
+                                            icon: "error",
+                                            buttonsStyling: false,
+                                            showCancelButton: true,
+                                            confirmButtonText: "Evet, eminim.",
+                                            cancelButtonText: 'Hayır, vazgeçtim.',
+                                            customClass: {
+                                                confirmButton: "btn btn-primary",
+                                                cancelButton: 'btn btn-danger'
+                                            }
+                                        }).then(function (confirm) {
+                                            if (confirm.value) {
+                                                $.ajax({
+                                                    url: "{{ route('offdays.details.delete') }}/" + args.event.id,
+                                                    type: "GET",
+                                                    data: {
+                                                        _token: "{{ csrf_token() }}",
+                                                    },
+                                                    success: function (data) {
+                                                        args.event.remove();
+                                                        toastr.success('İzin başarıyla silindi.');
+                                                    }
+                                                });
+                                            }
+                                        });
                                     }
                                 });
-                            }
-                        });
-                    }
-                });
+                            } else {
+                                Swal.fire({
+                                    buttonsStyling: false,
+                                    showCancelButton: true,
+                                    confirmButtonText: "Düzenle",
+                                    cancelButtonText: 'Sil',
+                                    customClass: {
+                                        confirmButton: "btn btn-primary",
+                                        cancelButton: 'btn btn-danger'
+                                    }
+                                }).then(function (confirm) {
+                                    if (confirm.value) {
+                                        // kt_modal_edit_event modal show and fill inputs
+                                        $('#'+args.event.extendedProps.modal).modal('show');
 
-            }
-        },
-        dateClick: function(info) {
-            $('#kt_modal_add_event_form').trigger("reset");
-            var date = moment(info.date).format('YYYY-MM-DD');
-            $('#kt_modal_add_event').modal('show');
-            $('input[name=calendar_event_start_date]').val(date);
-        },
-        select: function(info) {
-            $('#kt_modal_add_event_form').trigger("reset");
-            var start_date = moment(info.start).format('YYYY-MM-DD');
-            var start_time = moment(info.start).format('HH:mm:ss');
-            var end_date = moment(info.end).format('YYYY-MM-DD');
-            var end_time = moment(info.end).format('HH:mm:ss');
-            $('#kt_modal_add_event').modal('show');
-            $('input[name=calendar_event_start_date]').val(start_date);
-            $('input[name=calendar_event_start_time]').val(start_time);
-            $('input[name=calendar_event_end_date]').val(end_date);
-            $('input[name=calendar_event_end_time]').val(end_time);
-        },
-        eventOrder: 'sayi,start',
+                                    } else if (confirm.dismiss === swal.DismissReason.cancel) {
+                                        Swal.fire({
+                                            html: `Silmek istediğinize emin misiniz? Bu işlemi geri alamazsınız.`,
+                                            icon: "error",
+                                            buttonsStyling: false,
+                                            showCancelButton: true,
+                                            confirmButtonText: "Evet, eminim.",
+                                            cancelButtonText: 'Hayır, vazgeçtim.',
+                                            customClass: {
+                                                confirmButton: "btn btn-primary",
+                                                cancelButton: 'btn btn-danger'
+                                            }
+                                        }).then(function (confirm) {
+                                            if (confirm.value) {
+                                                $.ajax({
+                                                    url: "{{ route('calendar.remove_post') }}",
+                                                    type: "POST",
+                                                    data: {
+                                                        _token: "{{ csrf_token() }}",
+                                                        id: args.event.id
+                                                    },
+                                                    success: function (data) {
+                                                        if (data.status == "success") {
+                                                            args.event.remove();
+                                                            toastr.success('Takvim başarıyla silindi.');
+                                                        } else {
+                                                            toastr.error('Takvim silinemedi.');
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+
+                            }
+                        },
+                        dateClick: function(info) {
+                            $('#kt_modal_add_event_form').trigger("reset");
+                            var date = moment(info.date).format('YYYY-MM-DD');
+                            $('#kt_modal_add_event').modal('show');
+                            $('input[name=calendar_event_start_date]').val(date);
+                        },
+                        select: function(info) {
+                            $('#kt_modal_add_event_form').trigger("reset");
+                            var start_date = moment(info.start).format('YYYY-MM-DD');
+                            var start_time = moment(info.start).format('HH:mm:ss');
+                            var end_date = moment(info.end).format('YYYY-MM-DD');
+                            var end_time = moment(info.end).format('HH:mm:ss');
+                            $('#kt_modal_add_event').modal('show');
+                            $('input[name=calendar_event_start_date]').val(start_date);
+                            $('input[name=calendar_event_start_time]').val(start_time);
+                            $('input[name=calendar_event_end_date]').val(end_date);
+                            $('input[name=calendar_event_end_time]').val(end_time);
+                        },
+                        eventOrder: 'sayi,start',
+                    @endif
+                @endif
+            @endif
+        @endforeach
+
     });
     calendar.render();
 
