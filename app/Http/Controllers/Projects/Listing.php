@@ -42,8 +42,7 @@ class Listing extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'type' => 'required',
-            'preffered_counter' => 'required',
+            'type' => 'required'
         ]);
         $project = new Project();
         $project->title = $request->title;
@@ -59,8 +58,7 @@ class Listing extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'type' => 'required',
-            'preffered_counter' => 'required',
+            'type' => 'required'
         ]);
         $project = Project::query()->find($request->id);
         $project->title = $request->title;

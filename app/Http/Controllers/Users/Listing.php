@@ -19,6 +19,8 @@ class Listing extends Controller
 
         $start_date = request()->start_date;
         $end_date = request()->end_date;
+        $work_start_date = request()->start_date;
+        $work_end_date = request()->end_date;
         $status = request()->status;
         $office_id = request()->office_id;
         $project_id = request()->project_id;
@@ -45,7 +47,7 @@ class Listing extends Controller
             ->join('user_groups', 'user_details.group_id', '=', 'user_groups.id')
             ->join('projects', 'user_details.project_id', '=', 'projects.id')
             ->join('offices', 'user_details.office_id', '=', 'offices.id')
-            ->where(function ($query) use ($start_date, $end_date, $status, $office_id, $project_id, $user_id, $group_id) {
+            ->where(function ($query) use ($start_date, $end_date, $status, $office_id, $project_id, $user_id, $group_id, $work_start_date, $work_end_date) {
                 if ($start_date) {
                     $query->where('users.created_at', '>=', $start_date.' 00:00:00');
                 }
@@ -66,6 +68,12 @@ class Listing extends Controller
                 }
                 if ($group_id) {
                     $query->where('user_details.group_id', $group_id);
+                }
+                if ($work_start_date) {
+                    $query->where('user_details.work_start_date', '>=', $work_start_date.' 00:00:00');
+                }
+                if ($work_end_date) {
+                    $query->where('user_details.work_end_date', '<=', $work_end_date.' 23:59:59');
                 }
             })
             ->orderBy('users.created_at', 'DESC')
@@ -107,7 +115,6 @@ class Listing extends Controller
     {
         $validate = $request->validate([
             'username' => 'unique:users|required',
-            'email' => 'unique:users|required',
             'name' => 'required',
             'surname' => 'required',
             'phone' => 'required',

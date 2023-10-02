@@ -28,6 +28,7 @@ Route::middleware(['auth', 'statuschecker'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Profile::class, 'index'])->name('profile');
     Route::get('pauses', [\App\Http\Controllers\Pause\Listing::class, 'index'])->name('pauses');
     Route::prefix('sales')->group(function () {
+        Route::get('team-sales', [\App\Http\Controllers\Sales\TeamSales::class, 'index'])->name('sales.team-sales');
         Route::get('my-sales', [\App\Http\Controllers\Sales\MySales::class, 'index'])->name('sales.my-sales');
         Route::get('all-sales', [\App\Http\Controllers\Sales\AllSales::class, 'index'])->name('sales.all-sales');
         Route::get('add-sale-for-everyone', [\App\Http\Controllers\Sales\AddSale::class, 'index_for_everyone'])->name('sales.add-sale-for-everyone');

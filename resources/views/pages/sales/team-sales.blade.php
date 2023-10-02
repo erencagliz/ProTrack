@@ -12,8 +12,8 @@ License: For each use you must have a valid license purchased only from above li
 -->
 <html lang="en">
 <!--begin::Head-->
-<head>
-    <title>Projeler | Triooz</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<head><base href=""/>
+    <title>Takım Satışları | Triooz</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="{{ tr_favicon() }}" />
     <!--begin::Fonts(mandatory for all pages)-->
@@ -96,7 +96,7 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Page title-->
                         <div class="page-title d-flex justify-content-center flex-column me-5">
                             <!--begin::Title-->
-                            <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">Projeler</h1>
+                            <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">Satışlar</h1>
                             <!--end::Title-->
                             <!--begin::Breadcrumb-->
                             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
@@ -109,7 +109,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <li class="breadcrumb-item text-muted">></li>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <li class="breadcrumb-item text-muted">Projeler</li>
+                                <li class="breadcrumb-item text-muted">Satışlar</li>
                                 <!--end::Item-->
                             </ul>
                             <!--end::Breadcrumb-->
@@ -235,261 +235,262 @@ License: For each use you must have a valid license purchased only from above li
                 <div class="post d-flex flex-column-fluid" id="kt_post">
                     <!--begin::Container-->
                     <div id="kt_content_container" class="container-fluid">
-                        <!--begin::Card-->
-                        <div class="card">
+                        <!--begin::Products-->
+                        <div class="card card-flush">
                             <!--begin::Card header-->
-                            <div class="card-header border-0 pt-6">
+                            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                                 <!--begin::Card title-->
                                 <div class="card-title">
                                     <!--begin::Search-->
                                     <div class="d-flex align-items-center position-relative my-1">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                        <span class="svg-icon svg-icon-1 position-absolute ms-6">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
-														<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
-													</svg>
-												</span>
+                                        <span class="svg-icon svg-icon-1 position-absolute ms-4">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                                                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
                                         <!--end::Svg Icon-->
-                                        <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Ara..." />
+                                        <input type="text" data-kt-ecommerce-order-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Ara..." />
                                     </div>
                                     <!--end::Search-->
                                 </div>
-                                <!--begin::Card title-->
+                                <!--end::Card title-->
                                 <!--begin::Card toolbar-->
-                                <div class="card-toolbar">
-                                    <!--begin::Toolbar-->
-                                    <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                        <!--end::Filter-->
-                                        <!--begin::Add user-->
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
-                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                                            <span class="svg-icon svg-icon-2">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor" />
-														<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor" />
-													</svg>
-												</span>
-                                            <!--end::Svg Icon-->
-                                            Proje Ekle
-                                        </button>
-                                        <!--end::Add user-->
-                                    </div>
-                                    <!--end::Toolbar-->
-                                    <!--begin::Group actions-->
-                                    <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
-                                        <div class="fw-bold me-5">
-                                            <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected</div>
-                                        <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>
-                                    </div>
-                                    <!--end::Group actions-->
-                                    <!--begin::Modal - Add task-->
-                                    <div class="modal fade" id="kt_modal_add_user"  aria-hidden="true">
-                                        <!--begin::Modal dialog-->
-                                        <div class="modal-dialog modal-dialog-centered mw-650px">
-                                            <!--begin::Modal content-->
-                                            <form method="post" enctype="multipart/form-data" action="{{ route('projects.listing.add_post') }}" class="modal-content">
-                                                <!--begin::Modal header-->
-                                                <div class="modal-header" id="kt_modal_add_user_header">
-                                                    <!--begin::Modal title-->
-                                                    <h2 class="fw-bold">Proje Ekle</h2>
-                                                    <!--end::Modal title-->
-                                                    <!--begin::Close-->
-                                                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
-                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                                                        <span class="svg-icon svg-icon-1">
-																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-																		<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
-																	</svg>
-																</span>
-                                                        <!--end::Svg Icon-->
-                                                    </div>
-                                                    <!--end::Close-->
-                                                </div>
-                                                <!--end::Modal header-->
-                                                <!--begin::Modal body-->
-                                                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                                                    <!--begin::Form-->
-                                                    <div class="form">
-                                                        @csrf
-                                                        <!--begin::Scroll-->
-                                                        <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-                                                            <!--begin::Input group-->
-                                                            <div class="fv-row mb-7">
-                                                                <!--begin::Label-->
-                                                                <label class="required fw-semibold fs-6 mb-2">Başlık</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" name="title" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Başlık" value="" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="fv-row mb-7">
-                                                                <!--begin::Label-->
-                                                                <label class="fw-semibold fs-6 mb-2">Açıklama</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" name="description" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Açıklama" value="" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="fv-row mb-7">
-                                                                <!--begin::Label-->
-                                                                <label class="required fw-semibold fs-6 mb-2">Proje Tipi</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <select name="type" class="form-control form-control-solid mb-3 mb-lg-0" >
-                                                                    <option value="">Seçiniz...</option>
-                                                                    <option value="sale">Satış</option>
-                                                                    <option value="normal">Normal</option>
-                                                                </select>
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="fv-row mb-7">
-                                                                <!--begin::Label-->
-                                                                <label class="fw-semibold fs-6 mb-2">Proje Sayacı</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <select name="preffered_counter" class="form-control form-control-solid mb-3 mb-lg-0" >
-                                                                    <option value="">Seçiniz...</option>
-                                                                    <option value="point">Puan</option>
-                                                                    <option value="quantity">Adet</option>
-                                                                </select>
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                        </div>
-                                                        <!--end::Scroll-->
-                                                    </div>
-                                                    <!--end::Form-->
-                                                </div>
-                                                <!--end::Modal body-->
-                                                <!--begin::Modal foot-->
-                                                <div class="modal-footer flex-center">
-
-                                                    <!--begin::Button-->
-                                                    <button type="submit" class="btn btn-primary">Ekle</button>
-                                                    <!--end::Button-->
-                                                </div>
-                                                <!--end::Modal foot-->
-                                            </form>
-                                            <!--end::Modal content-->
+                                <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                                    <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
+                                        <span class="svg-icon svg-icon-2">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor"></path>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        Filtre
+                                    </button>
+                                    <form method="get" action="" id="filter_form" class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true" style="">
+                                        <!--begin::Header-->
+                                        <div class="px-7 py-5">
+                                            <div class="fs-5 text-dark fw-bold">Filtre</div>
                                         </div>
-                                        <!--end::Modal dialog-->
-                                    </div>
-                                    <!--end::Modal - Add task-->
+                                        <!--end::Header-->
+                                        <!--begin::Separator-->
+                                        <div class="separator border-gray-200"></div>
+                                        <!--end::Separator-->
+                                        <!--begin::Content-->
+                                        <div class="px-7 py-5 row" data-kt-user-table-filter="form">
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-5">
+                                                <label class="form-label fs-6 fw-semibold">Başlangıç Tarihi:</label>
+                                                <input  value="{{ $_GET['start_date'] }}" class="form-control form-control-solid rounded rounded-end-0" name="start_date" type="date" placeholder="Başlangıç Tarihi" id="" />
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-5">
+                                                <label class="form-label fs-6 fw-semibold">Bitiş Tarihi:</label>
+                                                <input value="{{ $_GET['end_date'] }}" class="form-control form-control-solid rounded rounded-end-0" name="end_date" type="date" placeholder="Bitiş Tarihi" id="" />
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-5">
+                                                <label class="form-label fs-6 fw-semibold">Durum:</label>
+                                                <!--begin::Select2-->
+                                                <select name="status" class="form-select form-select-solid" data-control="select2" >
+                                                    <option selected value="">Seçiniz...</option>
+                                                    <option {{ $_GET['status'] == "active" ? "selected" : "" }} value="active">Aktif</option>
+                                                    <option {{ $_GET['status'] == "passive" ? "selected" : "" }} value="passive">Pasif</option>
+                                                    <option {{ $_GET['status'] == "pending" ? "selected" : "" }} value="pending">Beklemede</option>
+                                                </select>
+                                                <!--end::Select2-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-5">
+                                                <label class="form-label fs-6 fw-semibold">Kullanıcı:</label>
+                                                <!--begin::Select2-->
+                                                <select name="user_id" class="form-select form-select-solid" data-control="select2" >
+                                                    <option selected value="">Seçiniz...</option>
+                                                    @foreach($users as $row)
+                                                        <option  {{ $_GET['user_id'] == $row->id ? "selected" : "" }} value="{{ $row->id }}">{{ $row->name.' '.$row->surname }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <!--end::Select2-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-5">
+                                                <label class="form-label fs-6 fw-semibold">Ürün:</label>
+                                                <!--begin::Select2-->
+                                                <select name="product_id" class="form-select form-select-solid" data-control="select2">
+                                                    <option selected value="">Seçiniz...</option>
+                                                    @foreach($products as $row)
+                                                        <option  {{ $_GET['product_id'] == $row->id ? "selected" : "" }} value="{{ $row->id }}">{{ $row->name }} ({{ $row->title }})</option>
+                                                    @endforeach
+                                                </select>
+                                                <!--end::Select2-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Actions-->
+                                            <div class="d-flex justify-content-end">
+                                                <a href="{{ route('sales.all-sales') }}" class="btn btn-light mx-3 fw-semibold px-6" >Sıfırla</a>
+                                                <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true">Uygula</button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </div>
+                                        <!--end::Content-->
+                                    </form>
+                                    <!--begin::Flatpickr-->
                                 </div>
                                 <!--end::Card toolbar-->
                             </div>
                             <!--end::Card header-->
                             <!--begin::Card body-->
-                            <div class="card-body py-4">
+                            <div class="card-body pt-0">
                                 <!--begin::Table-->
-                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_sales_table">
                                     <!--begin::Table head-->
                                     <thead>
                                     <!--begin::Table row-->
-                                    <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                        <th class="w-10px pe-2">#</th>
-                                        <th class="min-w-125px">Başlık</th>
-                                        <th class="min-w-125px">Açıklama</th>
-                                        <th class="min-w-125px">Proje Sayacı</th>
-                                        <th class="min-w-125px">Proje Tipi</th>
-                                        <th class="min-w-125px">Durum</th>
-                                        <th class="min-w-125px">Tarih</th>
-                                        <th></th>
-                                        <th class="text-end min-w-100px">İşlemler</th>
+                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                        <th class="">
+                                            #
+                                        </th>
+                                        <th class="">Kullanıcı</th>
+                                        <th class="">Ürün</th>
+                                        <th class="">Adet</th>
+                                        <th class="">Puan</th>
+                                        <th class="">Detaylar</th>
+                                        <th class="">Durum</th>
+                                        <th class="">Eklenme Tarihi</th>
+                                        <th class="">Son Düzenlenme Tarihi</th>
+                                        <th class="text-end">İşlemler</th>
                                     </tr>
                                     <!--end::Table row-->
                                     </thead>
                                     <!--end::Table head-->
                                     <!--begin::Table body-->
-                                    <tbody class="text-gray-600 fw-semibold">
-                                    @foreach($projects as $row)
+                                    <tbody class="fw-semibold text-gray-600">
+                                    @foreach($sales as $row)
                                         <!--begin::Table row-->
                                         <tr>
-                                            <!--begin::Che ckbox-->
+                                            <!--begin::Checkbox-->
                                             <td>
                                                 {{ $row->id }}
                                             </td>
                                             <!--end::Checkbox-->
-                                            <!--begin::Role=-->
+                                            <!--begin::Customer=-->
                                             <td>
-                                                <a class="text-gray-800 text-hover-primary mb-1">{{ $row->title }}</a><br>
+                                                <div class="d-flex align-items-center">
+                                                    <!--begin:: Avatar -->
+                                                    <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                        <a>
+                                                            <div class="symbol-label">
+                                                                <img src="{{ tr_user_image($row->user_id) }}" alt="Ethan Wilder" class="w-100" />
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <!--end::Avatar-->
+                                                    <div class="ms-5">
+                                                        <!--begin::Title-->
+                                                        <a class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ tr_user_fullname($row->user_id) }}</a>
+                                                        <!--end::Title-->
+                                                        <br>
+                                                        {{ tr_project_title($row->project_id) }}
+                                                        /
+                                                        {{ tr_office_title($row->office_id) }}
+                                                    </div>
+                                                </div>
                                             </td>
-                                            <!--end::Role=-->
-                                            <!--begin::Role=-->
+                                            <!--end::Customer=-->
+                                            <!--begin::Customer=-->
                                             <td>
-                                                <a class="text-gray-800 text-hover-primary mb-1">{{ $row->description }}</a><br>
+                                                <a class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $row->product_title }} - {{ $row->product_name }}</a>
                                             </td>
-                                            <!--end::Role=-->
-                                            <!--begin::Role=-->
+                                            <!--end::Customer=-->
+                                            <!--begin::Customer=-->
                                             <td>
-                                                <a class="text-gray-800 text-hover-primary mb-1">@if($row->preffered_counter == "point") Puan @elseif($row->preffered_counter == "quantity") Adet @endif</a><br>
+                                                {{ $row->quantity }}
                                             </td>
-                                            <!--end::Role=-->
-                                            <!--begin::Role=-->
+                                            <!--end::Customer=-->
+                                            <!--begin::Customer=-->
                                             <td>
-                                                <a class="text-gray-800 text-hover-primary mb-1">{{ $row->type == "sale" ? "Satış" : "Normal" }}</a><br>
+                                                {{ $row->point }}
                                             </td>
-                                            <!--end::Role=-->
-                                            <!--begin::Last login=-->
+                                            <!--end::Customer=-->
+                                            <!--begin::Customer=-->
                                             <td>
-                                                <div class="badge badge-{{ tr_status_class($row->status) }} fw-bold">{{ tr_status_beautify($row->status) }}</div>
+                                                @php
+                                                    $json = json_decode($row->custom, true);
+                                                    if ($json) {
+                                                        foreach ($json as $key => $value) {
+                                                            if ($key == "iban_verify") {
+                                                                if ($value == true) {
+                                                                    echo "<div class='badge badge-success'>IBAN Var</div><br>";
+                                                                }
+                                                            } elseif ($key == "sms_verify") {
+                                                                if ($value == true) {
+                                                                    echo "<div class='badge badge-success'>SMS & E-posta Onaylı</div><br>";
+                                                                }
+                                                            } elseif ($key == "customer_phone") {
+                                                                if ($value == true) {
+                                                                    echo "<div class='badge badge-success'>".$value."</div><br>";
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                @endphp
                                             </td>
-                                            <!--end::Last login=-->
-                                            <!--begin::Joined-->
-                                            <td>
-                                                {{ \Carbon\Carbon::createFromDate($row->created_at)->translatedFormat('j F Y, H:i:s') }}
+                                            <!--end::Customer=-->
+                                            <!--begin::Status=-->
+                                            <td class="pe-0">
+                                                <!--begin::Badges-->
+                                                <div class="badge badge-light-{{ tr_status_class($row->status) }}">{{ tr_status_beautify($row->status) }}</div>
+                                                <!--end::Badges-->
                                             </td>
-                                            <!--begin::Joined-->
-                                            <td></td>
+                                            <!--end::Status=-->
+                                            <!--begin::Date Added=-->
+                                            <td class="">
+                                                <span class="fw-bold">{{ \Carbon\Carbon::createFromDate($row->created_at)->translatedFormat('j F Y, H:i:s') }}</span>
+                                            </td>
+                                            <!--end::Date Added=-->
+                                            <!--begin::Date Modified=-->
+                                            <td class="">
+                                                <span class="fw-bold">{{ \Carbon\Carbon::createFromDate($row->updated_at)->translatedFormat('j F Y, H:i:s') }}</span>
+                                            </td>
+                                            <!--end::Date Modified=-->
                                             <!--begin::Action=-->
                                             <td class="text-end">
-                                                <a href="javascript:void(0);" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Düzenle
+                                                <a href="javascript:void(0);" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">İşlemler
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                                     <span class="svg-icon svg-icon-5 m-0">
-                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                    <!--end::Svg Icon-->
-                                                </a>
+															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+																<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
+															</svg>
+														</span>
+                                                    <!--end::Svg Icon--></a>
                                                 <!--begin::Menu-->
                                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#kt_modal_project_edit_{{ $row->id }}" class="menu-link px-3">Düzenle</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
                                                     @if($row->status !== "passive")
                                                         <!--begin::Menu item-->
                                                         <div class="menu-item px-3">
-                                                            <a href="{{ route('projects.listing.delete', ['id' => $row->id]) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">Sil</a>
+                                                            <a href="{{ route('sales.all-sales.delete', ['id' => $row->id]) }}" class=" menu-link px-3">Pasifleştir</a>
                                                         </div>
                                                         <!--end::Menu item-->
                                                     @endif
                                                     @if($row->status !== "active")
                                                         <!--begin::Menu item-->
                                                         <div class="menu-item px-3">
-                                                            <a href="{{ route('projects.listing.active', ['id' => $row->id]) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">Aktifleştir</a>
+                                                            <a href="{{ route('sales.all-sales.active', ['id' => $row->id]) }}" class=" menu-link px-3">Aktifleştir</a>
                                                         </div>
                                                         <!--end::Menu item-->
                                                     @endif
                                                     @if($row->status !== "pending")
                                                         <!--begin::Menu item-->
                                                         <div class="menu-item px-3">
-                                                            <a href="{{ route('projects.listing.pending', ['id' => $row->id]) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">Beklemeye Al</a>
+                                                            <a href="{{ route('sales.all-sales.pending', ['id' => $row->id]) }}" class=" menu-link px-3">Beklemeye Al</a>
                                                         </div>
                                                         <!--end::Menu item-->
                                                     @endif
-                                                    <!--end::Menu item-->
                                                 </div>
                                                 <!--end::Menu-->
                                             </td>
@@ -504,132 +505,13 @@ License: For each use you must have a valid license purchased only from above li
                             </div>
                             <!--end::Card body-->
                         </div>
-                        <!--end::Card-->
+                        <!--end::Products-->
                     </div>
                     <!--end::Container-->
                 </div>
                 <!--end::Post-->
             </div>
             <!--end::Content-->
-            @foreach($projects as $row)
-                <!--begin::Modal - Add task-->
-                <div class="modal fade" id="kt_modal_project_edit_{{ $row->id }}"  aria-hidden="true">
-                    <!--begin::Modal dialog-->
-                    <div class="modal-dialog modal-dialog-centered mw-650px">
-                        <!--begin::Modal content-->
-                        <form method="post" enctype="multipart/form-data" action="{{ route('projects.listing.edit_post') }}" class="modal-content">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $row->id }}">
-                            <!--begin::Modal header-->
-                            <div class="modal-header" id="kt_modal_add_user_header">
-                                <!--begin::Modal title-->
-                                <h2 class="fw-bold">Proje Düzenle</h2>
-                                <!--end::Modal title-->
-                                <!--begin::Close-->
-                                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
-                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                                    <span class="svg-icon svg-icon-1">
-																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-																		<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
-																	</svg>
-																</span>
-                                    <!--end::Svg Icon-->
-                                </div>
-                                <!--end::Close-->
-                            </div>
-                            <!--end::Modal header-->
-                            <!--begin::Modal body-->
-                            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                                <!--begin::Form-->
-                                <div class="form">
-                                    @csrf
-                                    <!--begin::Scroll-->
-                                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-semibold fs-6 mb-2">Başlık</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" name="title" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Başlık" value=" {{ $row->title }}" />
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fw-semibold fs-6 mb-2">Açıklama</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" name="description" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Açıklama" value="{{ $row->description }}" />
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-semibold fs-6 mb-2">Proje Sayacı</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select name="preffered_counter" class="form-control form-control-solid mb-3 mb-lg-0" >
-                                                <option value="">Seçiniz...</option>
-                                                <option {{ $row->preffered_counter == "point" ? "selected" : "" }} value="point">Puan</option>
-                                                <option {{ $row->preffered_counter == "quantity" ? "selected" : "" }} value="quantity">Adet</option>
-                                            </select>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-semibold fs-6 mb-2">Proje Tipi</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select name="type" class="form-control form-control-solid mb-3 mb-lg-0" >
-                                                <option value="">Seçiniz...</option>
-                                                <option {{ $row->type == "sale" ? "selected" : "" }} value="sale">Satış</option>
-                                                <option {{ $row->type == "normal" ? "selected" : "" }} value="normal">Normal</option>
-                                            </select>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-semibold fs-6 mb-2">Durum</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select name="status" class="form-control form-control-solid mb-3 mb-lg-0" >
-                                                <option value="">Seçiniz...</option>
-                                                <option {{ $row->status == "active" ? "selected" : "" }} value="active">Aktif</option>
-                                                <option {{ $row->status == "passive" ? "selected" : "" }} value="passive">Pasif</option>
-                                                <option {{ $row->status == "pending" ? "selected" : "" }} value="pending">Beklemede</option>
-                                            </select>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                    </div>
-                                    <!--end::Scroll-->
-                                </div>
-                                <!--end::Form-->
-                            </div>
-                            <!--end::Modal body-->
-                            <!--begin::Modal foot-->
-                            <div class="modal-footer flex-center">
-
-                                <!--begin::Button-->
-                                <button type="submit" class="btn btn-primary">Düzenle</button>
-                                <!--end::Button-->
-                            </div>
-                            <!--end::Modal foot-->
-                        </form>
-                        <!--end::Modal content-->
-                    </div>
-                    <!--end::Modal dialog-->
-                </div>
-                <!--end::Modal - Add task-->
-            @endforeach
             <!--begin::Footer-->
             <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
                 <!--begin::Container-->
@@ -673,13 +555,13 @@ License: For each use you must have a valid license purchased only from above li
 <script src="{{ asset('trapp') }}/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Vendors Javascript-->
 <!--begin::Custom Javascript(used for this page only)-->
-<script src="{{ asset('trapp') }}/assets/js/custom/apps/user-management/users/list/table.js"></script>
-<script src="{{ asset('trapp') }}/assets/js/custom/apps/user-management/users/list/export-users.js"></script>
-<script src="{{ asset('trapp') }}/assets/js/custom/apps/user-management/users/list/add.js"></script>
+<script src="{{ asset('trapp') }}/assets/js/custom/apps/ecommerce/sales/listing.js"></script>
 <script src="{{ asset('trapp') }}/assets/js/widgets.bundle.js"></script>
 <script src="{{ asset('trapp') }}/assets/js/custom/widgets.js"></script>
 <script src="{{ asset('trapp') }}/assets/js/custom/apps/chat/chat.js"></script>
 <script src="{{ asset('trapp') }}/assets/js/custom/utilities/modals/users-search.js"></script>
+<!--end::Custom Javascript-->
+<!--begin::Custom Javascript(used for this page only)-->
 @livewireScripts
 @include('includes.errors')
 <!--end::Custom Javascript-->

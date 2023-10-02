@@ -13,10 +13,16 @@ return [
         'permission_key' => 'my_sales_view',
         'title' => 'Satışlarım',
     ],
+    'team_sales' => [
+        'route' => 'sales.team-sales',
+        'icon' => 'fa fa-basket-shopping',
+        'permission_key' => 'my_sales_view',
+        'title' => 'Takım Satışları',
+    ],
     'all_sales' => [
         'route' => 'sales.all-sales',
         'icon' => 'fa fa-basket-shopping',
-        'permission_key' => 'all_sales_view',
+        'permission_key' => 'team_sales_view',
         'title' => 'Satışlar',
     ],
     'teams' => [

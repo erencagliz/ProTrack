@@ -366,6 +366,18 @@ License: For each use you must have a valid license purchased only from above li
                                                         <!--end::Select2-->
                                                     </div>
                                                     <!--end::Input group-->
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-5">
+                                                        <label class="form-label fs-6 fw-semibold">İş Başlangıç Tarihi:</label>
+                                                        <input  value="{{ $_GET['work_start_date'] }}" class="form-control form-control-solid rounded rounded-end-0" name="work_start_date" type="date" placeholder="İş Başlangıç Tarihi" id="" />
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-5">
+                                                        <label class="form-label fs-6 fw-semibold">İş Bitiş Tarihi:</label>
+                                                        <input value="{{ $_GET['work_end_date'] }}" class="form-control form-control-solid rounded rounded-end-0" name="work_end_date" type="date" placeholder="İş Bitiş Tarihi" id="" />
+                                                    </div>
+                                                    <!--end::Input group-->
                                                     <!--begin::Actions-->
                                                     <div class="d-flex justify-content-end">
                                                         <a href="{{ route('users.listing') }}" class="btn btn-light mx-3 fw-semibold px-6" >Sıfırla</a>
@@ -519,7 +531,7 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <label class="required fw-semibold fs-6 mb-2">Telefon</label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <input type="text" name="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Telefon" value="" />
+                                                                <input type="text" name="phone" id="phoneinput" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Telefon" value="" />
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input group-->
@@ -848,6 +860,11 @@ License: For each use you must have a valid license purchased only from above li
     }
     $('#nameinput').on('keyup', createUsername);
     $('#surnameinput').on('keyup', createUsername);
+    $(document).ready(function () {
+        Inputmask({
+            "mask" : "+\\90 (999) 999-9999"
+        }).mask("#phoneinput");
+    });
 </script>
 @livewireScripts
 @include('includes.errors')

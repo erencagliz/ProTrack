@@ -13,6 +13,10 @@ return [
         'title' => 'Satışlarım Görüntüleme Yetkisi',
         'description' => 'Satışlarım sayfasını görüntüleme yetkisini barındırır.',
     ],
+    'team_sales_view' => [
+        'title' => 'Takım Satışları Görüntüleme Yetkisi',
+        'description' => 'Takım Satışları sayfasını görüntüleme yetkisini barındırır.',
+    ],
     'all_sales_view' => [
         'title' => 'Satışlar Görüntüleme Yetkisi',
         'description' => 'Satışlar sayfasını görüntüleme yetkisini barındırır.',

@@ -1517,7 +1517,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     <label class="required fw-semibold fs-6 mb-2">Telefon</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Telefon" value="{{ $user->phone }}" />
+                                                    <input type="text" id="phoneinput" name="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Telefon" value="{{ $user->phone }}" />
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -1857,6 +1857,12 @@ License: For each use you must have a valid license purchased only from above li
                 window.location.href = href;
             }
         });
+    });
+
+    $(document).ready(function () {
+        Inputmask({
+            "mask" : "+\\90 (999) 999-9999"
+        }).mask("#phoneinput");
     });
 </script>
 @livewireScripts

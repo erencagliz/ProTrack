@@ -179,7 +179,8 @@ return [
         'old_password' => 'Eski Şifre',
         'new_password' => 'Yeni Şifre',
         'new_password_confirmation' => 'Yeni Şifre Tekrar',
-        'username' => 'Kullanıcı Adı'
+        'username' => 'Kullanıcı Adı',
+        'work_start_date' => 'İş Başlama Tarihi'
     ],
 
 ];
