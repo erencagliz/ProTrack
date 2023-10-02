@@ -51,7 +51,7 @@ class AddSale extends Controller
             $sale->product_id = $request->product_id;
             $sale->point = $request->point;
             $sale->quantity = $request->quantity;
-            $sale->created_at = $request->created_at ? $request->created_at : date('Y-m-d H:i:s');
+            $sale->created_at = $request->created_at ? $request->created_at.' '.date('H:i:s') : date('Y-m-d H:i:s');
             $sale->status = 'active';
             $sale->custom = $custom;
             $sale->save();

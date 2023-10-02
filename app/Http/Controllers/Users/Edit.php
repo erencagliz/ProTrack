@@ -128,7 +128,7 @@ class Edit extends Controller
                 if ($add_details) {
                     $file = $request->file('image');
                     if ($file) {
-                        $directory = base_path().'/'.env('UPLOADS_DIRECTION').'/';
+                        $directory = base_path().'/'.env('UPLOADS_DIRECTION').'/users';
                         $file_name = uniqid('triooz_');
                         $file->move($directory,$file_name.'.'.$file->getClientOriginalExtension());
                         if ($file) {

@@ -37,16 +37,16 @@ if (! function_exists('tr_user_image')) {
         if ($user_id == null) {
             $image = tr_user_details(null, 'image');
             if ($image !== null) {
-                return asset('trapp/uploads/'.$image);
+                return asset('trapp/uploads/users/'.$image);
             } else {
-                return asset('trapp/uploads/null.png');
+                return asset('trapp/uploads/users/null.png');
             }
         } else {
             $image = tr_user_details($user_id, 'image');
             if ($image !== null) {
-                return asset('trapp/uploads/'.$image);
+                return asset('trapp/uploads/users/'.$image);
             } else {
-                return asset('trapp/uploads/null.png');
+                return asset('trapp/uploads/users/null.png');
             }
         }
     }

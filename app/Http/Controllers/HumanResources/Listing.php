@@ -65,6 +65,11 @@ class Listing extends Controller
         $human_resources->owner_id = $request->owner_id;
         $human_resources->status = 'active';
         $human_resources->save();
+
+        if ($human_resources->position == 'positive') {
+            $human_resources->position_condition = null;
+        }
+
         if ($human_resources) {
             return redirect()->back()->withErrors(['success,Veri başarıyla eklendi.']);
         }

@@ -13,7 +13,7 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 <!--begin::Head-->
 <head><base href=""/>
-    <title>İnsan Kaynakları Düzenle | Triooz</title>
+    <title>İnsan Kaynakları Düzenle | Triooz</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="{{ tr_favicon() }}" />
     <!--begin::Fonts(mandatory for all pages)-->
@@ -351,7 +351,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <label class=" fw-semibold fs-6 mb-2">Durum Sebebi</label>
                                             <!--end::Label-->
                                             <select name="position_condition" class="form-select form-select-solid">
-                                                <option  disabled>Seçiniz...</option>
+                                                <option >Seçiniz...</option>
                                                 <option {{ $human_resource->position_condition == "work_hours" ? "selected" : "" }} value="work_hours">Çalışma Saatleri</option>
                                                 <option {{ $human_resource->position_condition == "sgk" ? "selected" : "" }} value="sgk">SGK</option>
                                                 <option {{ $human_resource->position_condition == "salary" ? "selected" : "" }} value="salary">Maaş</option>
@@ -519,7 +519,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Form-->
                             </div>
                             <div class="card-footer justify-content-end d-flex">
-                                <button type="submit" id="submit_button" class="btn btn-primary">Ekle</button>
+                                <button type="submit" id="submit_button" class="btn btn-primary">Kaydet</button>
                             </div>
                         </form>
                     </div>

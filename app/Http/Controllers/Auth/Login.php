@@ -15,16 +15,19 @@ class Login extends Controller
 
     public function post (Request $request)
     {
-        $email = $request->email;
-        $password = $request->password;
-        if (!$email || !$password) {
-            return redirect()->back()->withErrors(['error, Bütün alanlar doldurulmak zorundadır. Lütfen tekrar deneyiniz.']);
+        $validate = $request->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
+        if (!$validate) {
+            return redirect()->back()->withErrors(['error, Girdiğiniz bilgiler doğru gözükmüyor. Lütfen tekrar deneyiniz.']);
+        }
+
+        if (\Auth::attempt(['username' => $request->username, 'password' => $request->password], true)) {
+            return redirect()->route('dashboard')->withErrors(['success, Başarıyla giriş yaptınız.']);
         } else {
-            if (\Auth::attempt(['email' => $email, 'password' => $password], true)) {
-                return redirect()->route('dashboard')->withErrors(['success, Başarıyla giriş yaptınız.']);
-            } else {
-                return redirect()->back()->withErrors(['error, Girdiğiniz bilgiler doğru gözükmüyor. Lütfen tekrar deneyiniz.']);
-            }
+            return redirect()->back()->withErrors(['error, Girdiğiniz bilgiler doğru gözükmüyor. Lütfen tekrar deneyiniz.']);
         }
     }
 }

@@ -13,7 +13,7 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 <!--begin::Head-->
 <head>
-    <title>Kullanıcı Listesi | Triooz</title>
+    <title>Kullanıcı Listesi | Triooz</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="{{ tr_favicon() }}" />
     <!--begin::Fonts(mandatory for all pages)-->
@@ -472,7 +472,7 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <label class="required fw-semibold fs-6 mb-2">İsim</label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="İsim" value="" />
+                                                                <input type="text" id="nameinput" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="İsim" value="" />
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input group-->
@@ -482,7 +482,7 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <label class="required fw-semibold fs-6 mb-2">Soyisim</label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <input type="text" name="surname" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Soyisim" value="" />
+                                                                <input type="text" id="surnameinput" name="surname" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Soyisim" value="" />
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input group-->
@@ -493,10 +493,7 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
                                                                 <div class="input-group">
-                                                                    <input type="text" name="username" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Kullanıcı Adı" value="" />
-                                                                    <div class="input-group-append">
-                                                                        <button class="btn btn-primary" type="button"><i class="fa fa-rotate"></i></button>
-                                                                    </div>
+                                                                    <input type="text" id="usernameinput" name="username" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Kullanıcı Adı" value="" />
                                                                 </div>
                                                                 <!--end::Input-->
                                                             </div>
@@ -508,9 +505,9 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
                                                                 <div class="input-group">
-                                                                    <input type="text" name="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Şifre" value="" />
+                                                                    <input type="text" id="passwordinput" name="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Şifre" value="" />
                                                                     <div class="input-group-append">
-                                                                        <button class="btn btn-primary" type="button"><i class="fa fa-rotate"></i></button>
+                                                                        <button class="btn btn-primary" onclick="generatePassword()" type="button"><i class="fa fa-rotate"></i></button>
                                                                     </div>
                                                                 </div>
                                                                 <!--end::Input-->
@@ -523,6 +520,16 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
                                                                 <input type="text" name="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Telefon" value="" />
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                            <!--begin::Input group-->
+                                                            <div class="fv-row mb-7">
+                                                                <!--begin::Label-->
+                                                                <label class="required fw-semibold fs-6 mb-2">İş Başlama Tarihi</label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="date" name="work_start_date" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="İş Başlama Tarihi" value="" />
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input group-->
@@ -823,6 +830,25 @@ License: For each use you must have a valid license purchased only from above li
 <script src="{{ asset('trapp') }}/assets/js/custom/widgets.js"></script>
 <script src="{{ asset('trapp') }}/assets/js/custom/apps/chat/chat.js"></script>
 <script src="{{ asset('trapp') }}/assets/js/custom/utilities/modals/users-search.js"></script>
+<script>
+    function generatePassword() {
+        var length = 8,
+            charset = "abcdefghjkmnopqrstuvwxyzABCDEFGHJKMNOPQRSTUVWXYZ0123456789",
+            retVal = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+            retVal += charset.charAt(Math.floor(Math.random() * n));
+        }
+        $('#passwordinput').val(retVal);
+    }
+    function createUsername()  {
+        var fname = $('#nameinput').val().replace(/\s/g, '').replace('Ğ','g').replace('Ü','u').replace('Ş','s').replace('I','i').replace('İ','i').replace('Ö','o').replace('Ç','c').replace('ğ','g').replace('ü','u').replace('ş','s').replace('ı','i').replace('ö','o').replace('ç','c').toLowerCase();
+        var lname = $('#surnameinput').val().replace(/\s/g, '').replace('Ğ','g').replace('Ü','u').replace('Ş','s').replace('I','i').replace('İ','i').replace('Ö','o').replace('Ç','c').replace('ğ','g').replace('ü','u').replace('ş','s').replace('ı','i').replace('ö','o').replace('ç','c').toLowerCase();
+        var gusername = fname + lname;
+        $('#usernameinput').val(gusername);
+    }
+    $('#nameinput').on('keyup', createUsername);
+    $('#surnameinput').on('keyup', createUsername);
+</script>
 @livewireScripts
 @include('includes.errors')
 <!--end::Custom Javascript-->

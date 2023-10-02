@@ -98,7 +98,11 @@ return [
         'description' => 'Primlerim sayfasını görüntüleme yetkisini barındırır.',
     ],
     'add_event_to_calendar' => [
-        'title' => 'Takvim Ekleme Yetkisi',
-        'description' => 'Takvime ekleme yetkisini barındırır.',
+        'title' => 'Takvim Etkinlik Ekleme Yetkisi',
+        'description' => 'Takvime etkinlik ekleme yetkisini barındırır.',
+    ],
+    'calendar_view_interview_and_offday' => [
+        'title' => 'Takvim Mülakat ve İzin Görüntüleme Yetkisi',
+        'description' => 'Takvime mülakat ve izin görüntüleme yetkisini barındırır.',
     ],
 ];

@@ -15,6 +15,7 @@ class Calendar extends Controller
         $events = \App\Models\Calendar::query()->where(['status' => 'active', 'type' => 'event'])->get();
         $interviews = \App\Models\Calendar::query()->where(['status' => 'active', 'type' => 'interview'])->get();
         $meetings = \App\Models\Calendar::query()->where(['status' => 'active', 'type' => 'meeting'])->get();
+        $appointment = \App\Models\Calendar::query()->where(['status' => 'active', 'type' => 'appointment'])->get();
         $working_days = \App\Models\Calendar::query()->where(['status' => 'active', 'type' => 'working_day'])->whereBetween('start_date', [date('Y-m-01'), date('Y-m-t')])->orderBy('id', 'DESC')->get();
         $birthdays = \App\Models\User::query()->select('users.*', 'user_details.birthdate')->join('user_details', 'user_details.user_id', '=', 'users.id')->where(['users.status' => 'active'])->get();
         $users = User::query()->where(['status' => 'active'])->get();
@@ -26,7 +27,8 @@ class Calendar extends Controller
             'birthdays' => $birthdays,
             'users' => $users,
             'offday' => $offday,
-            'all_events' => $all_events
+            'all_events' => $all_events,
+            'appointment'  => $appointment
         ]);
     }
 
@@ -102,6 +104,39 @@ class Calendar extends Controller
             if ($insert) {
                 return redirect()->back()->withErrors(['success,Takvim başarıyla eklendi.']);
             }
+        } else if ($request->calendar_type == "appointment") {
+
+            $old = \App\Models\Calendar::query()->where([
+                'start_date' => $request->calendar_event_start_date,
+                'start_time' => $request->calendar_event_start_time
+            ])->first();
+
+            if ($old) {
+                return redirect()->back()->withErrors(['error,Aynı saate başka bir randevu var.']);
+            }
+
+            $request->validate([
+                'title' => 'required',
+                'calendar_event_start_date' => 'required',
+            ]);
+
+            $insert = \App\Models\Calendar::query()->insert([
+                'type' => $request->calendar_type,
+                'title' => $request->title,
+                'description' => $request->description,
+                'location' => $request->location,
+                'start_date' => $request->calendar_event_start_date,
+                'end_date' => $request->calendar_event_end_date,
+                'start_time' => $request->calendar_event_start_time,
+                'end_time' => $request->calendar_event_end_time,
+                'status' => 'active',
+                'users' => json_encode($request->users),
+            ]);
+
+            if ($insert) {
+                return redirect()->back()->withErrors(['success,Takvim başarıyla eklendi.']);
+            }
+
         } else {
             $request->validate([
                 'title' => 'required',

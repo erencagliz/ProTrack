@@ -13,7 +13,7 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 <!--begin::Head-->
 <head>
-    <title>Takvim | Triooz</title>
+    <title>Takvim | Triooz</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="{{ tr_favicon() }}" />
     <!--begin::Fonts(mandatory for all pages)-->
@@ -561,7 +561,8 @@ License: For each use you must have a valid license purchased only from above li
 
 <!--end::Main-->
 <!--begin::Scrolltop-->
-@include('includes.drawers')<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+@include('includes.drawers')
+<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
     <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
     <span class="svg-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -727,35 +728,43 @@ License: For each use you must have a valid license purchased only from above li
                 modal: '{{ $row->id }}_calendar_modal',
             },
             @endforeach
-            @foreach($interviews as $row)
-            {
-                id: '{{ $row->id }}',
-                title: '{{ $row->title }} ({{ tr_calendar_type_beautifier($row->type) }})',
-                start: '{{ $row->start_date }}{{ $row->start_time ? 'T'.$row->start_time : "" }}',
-                end: '{{ $row->end_date }}{{ $row->end_time ? 'T'.$row->end_time : "" }}',
-                className: "fc-event-success",
-                popover: 'true',
-                description: '{{ $row->description }}',
-                location: '{{ $row->location }}',
-                users: '{{ $row->users }}',
-                modal: '{{ $row->id }}_calendar_modal',
-            },
-            @endforeach
-            @foreach($offday as $row)
-            {
-                id: '{{ $row->id }}',
-                title: '{{ $row->name }} {{ $row->surname }}',
-                start: '{{ $row->date }}',
-                editable: false,
-                type: 'offday',
-                'className': 'offday',
-                color: '#CD5A5AFF',
-                deletehref: '{{ route('offdays.details.delete', ['id' => $row->id]) }}',
-                href: '{{ route('offdays.edit', ['id' => $row->id]) }}',
-                eksiksure: '@if($row->type == "date") Tam Gün @else {{ $row->time }} Dk. @endif',
-                popover: 'true',
-            },
-            @endforeach
+                @php $perms = tr_group_permission(tr_user_details(null, 'group_id')) @endphp
+                @foreach(json_decode($perms, true) as $key2 => $value2)
+                    @if($key2 == "calendar_view_interview_and_offday")
+                        @if($value2 == true)
+                            @foreach($interviews as $row)
+                            {
+                                id: '{{ $row->id }}',
+                                title: '{{ $row->title }} ({{ tr_calendar_type_beautifier($row->type) }})',
+                                start: '{{ $row->start_date }}{{ $row->start_time ? 'T'.$row->start_time : "" }}',
+                                end: '{{ $row->end_date }}{{ $row->end_time ? 'T'.$row->end_time : "" }}',
+                                className: "fc-event-success",
+                                popover: 'true',
+                                description: '{{ $row->description }}',
+                                location: '{{ $row->location }}',
+                                users: '{{ $row->users }}',
+                                modal: '{{ $row->id }}_calendar_modal',
+                            },
+                                @endforeach
+                                @foreach($offday as $row)
+                            {
+                                id: '{{ $row->id }}',
+                                title: '{{ $row->name }} {{ $row->surname }}',
+                                start: '{{ $row->date }}',
+                                editable: false,
+                                type: 'offday',
+                                'className': 'offday',
+                                color: '#CD5A5AFF',
+                                deletehref: '{{ route('offdays.details.delete', ['id' => $row->id]) }}',
+                                href: '{{ route('offdays.edit', ['id' => $row->id]) }}',
+                                eksiksure: '@if($row->type == "date") Tam Gün @else {{ $row->time }} Dk. @endif',
+                                popover: 'true',
+                            },
+                            @endforeach
+                        @endif
+                    @endif
+                @endforeach
+
         ],
         @php $perms = tr_group_permission(tr_user_details(null, 'group_id')) @endphp
         @foreach(json_decode($perms, true) as $key2 => $value2)
@@ -1104,7 +1113,6 @@ License: For each use you must have a valid license purchased only from above li
     calendar.render();
 
     $(document).ready(function () {
-
         $('#event_interview_meeting_container').hide();
         $('#working_day_container').hide();
         $('#calendar_type').change(function () {

@@ -115,6 +115,7 @@ class Listing extends Controller
             'group_id' => 'required',
             'office_id' => 'required',
             'project_id' => 'required',
+            'work_start_date' => 'required'
         ]);
         if ($validate) {
             $add = User::insertGetId([
@@ -133,11 +134,12 @@ class Listing extends Controller
                     'project_id' => $request->project_id,
                     'office_id' => $request->office_id,
                     'group_id' => $request->group_id,
+                    'work_start_date' => $request->work_start_date,
                     'status' => 'active'
                 ]);
                 if ($add_details) {
                     $file = $request->file('image');
-                    $directory = base_path().'/'.env('UPLOADS_DIRECTION').'/';
+                    $directory = base_path().'/'.env('UPLOADS_DIRECTION').'/users';
                     $file_name = uniqid('triooz_');
                     $file->move($directory,$file_name.'.'.$file->getClientOriginalExtension());
                     if ($file) {

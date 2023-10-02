@@ -192,7 +192,7 @@
 
             <div class="modal-body">
                 <div style="text-align: center;font-size:30px;" id="display">00:00:00</div>
-                <div>
+                <div class="d-flex">
                     <button id="start_timer" class="m-auto btn btn-success">Başlat</button>
                     <button id="stop_timer" class="m-auto btn btn-danger d-none">Durdur</button>
                 </div>

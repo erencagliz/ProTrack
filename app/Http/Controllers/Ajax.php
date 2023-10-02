@@ -74,7 +74,7 @@ class Ajax extends Controller
             $sale->product_id = $request->product_id;
             $sale->point = $product->point * $request->quantity;
             $sale->quantity = $request->quantity;
-            $sale->created_at = $request->created_at ? $request->created_at : date('Y-m-d H:i:s');
+            $sale->created_at = $request->created_at ? $request->created_at.' '.date('H:i:s') : date('Y-m-d H:i:s');
             $sale->status = 'pending';
             $sale->custom = $custom;
             $sale->save();

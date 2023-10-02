@@ -127,4 +127,10 @@ return [
         'permission_key' => 'my_bonus_view',
         'title' => 'Primlerim',
     ],
+    'human_resources' => [
+        'route' => 'human-resources.listing',
+        'icon' => 'fa fa-users',
+        'permission_key' => 'human_resources_view',
+        'title' => 'İnsan Kaynakları',
+    ],
 ];
