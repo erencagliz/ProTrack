@@ -542,7 +542,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             if ($row->type == "team") {
                                                                 $sales = tr_sales_between_dates([
                                                                     'start_date' => date('Y-m-d 00:00:00', strtotime($row->start_date)),
-                                                                    'end_date' => date('Y-m-d 00:00:00', strtotime($row->end_date)),
+                                                                    'end_date' => date('Y-m-d 23:59:59', strtotime($row->end_date)),
                                                                     'returns' => $row->target_type,
                                                                     'office_id' => $row->office_id,
                                                                     'project_id' => $row->project_id,
@@ -551,7 +551,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             } else if ($row->type == "project") {
                                                                 $sales = tr_sales_between_dates([
                                                                     'start_date' => date('Y-m-d 00:00:00', strtotime($row->start_date)),
-                                                                    'end_date' => date('Y-m-d 00:00:00', strtotime($row->end_date)),
+                                                                    'end_date' => date('Y-m-d 23:59:59', strtotime($row->end_date)),
                                                                     'returns' => $row->target_type,
                                                                     'project_id' => $row->project_id,
                                                                     'type' => 'project',
@@ -559,7 +559,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             } else if ($row->type == "user") {
                                                                 $sales = tr_sales_between_dates([
                                                                     'start_date' => date('Y-m-d 00:00:00', strtotime($row->start_date)),
-                                                                    'end_date' => date('Y-m-d 00:00:00', strtotime($row->end_date)),
+                                                                    'end_date' => date('Y-m-d 23:59:59', strtotime($row->end_date)),
                                                                     'returns' => $row->target_type,
                                                                     'user_id' => $row->user_id,
                                                                     'type' => 'user',

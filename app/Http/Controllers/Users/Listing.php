@@ -43,10 +43,10 @@ class Listing extends Controller
                 'projects.title as project_title',
                 'user_groups.title as group_title'
             ])
-            ->join('user_details', 'user_details.user_id', '=', 'users.id')
-            ->join('user_groups', 'user_details.group_id', '=', 'user_groups.id')
-            ->join('projects', 'user_details.project_id', '=', 'projects.id')
-            ->join('offices', 'user_details.office_id', '=', 'offices.id')
+            ->leftJoin('user_details', 'user_details.user_id', '=', 'users.id')
+            ->leftJoin('user_groups', 'user_details.group_id', '=', 'user_groups.id')
+            ->leftJoin('projects', 'user_details.project_id', '=', 'projects.id')
+            ->leftJoin('offices', 'user_details.office_id', '=', 'offices.id')
             ->where(function ($query) use ($start_date, $end_date, $status, $office_id, $project_id, $user_id, $group_id, $work_start_date, $work_end_date) {
                 if ($start_date) {
                     $query->where('users.created_at', '>=', $start_date.' 00:00:00');

@@ -396,6 +396,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--begin::Table row-->
                                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                         <th class="w-10px pe-2">#</th>
+                                        <th class="min-w-125px">Proje</th>
                                         <th class="min-w-125px">Ürün Grubu</th>
                                         <th class="min-w-125px">Ürün Adı</th>
                                         <th class="min-w-125px">Durum</th>
@@ -416,6 +417,11 @@ License: For each use you must have a valid license purchased only from above li
                                                 {{ $row->id }}
                                             </td>
                                             <!--end::Checkbox-->
+                                            <!--begin::Role=-->
+                                            <td>
+                                                <a class="text-gray-800 text-hover-primary mb-1">{{ tr_project_title($row->project_id) }}</a><br>
+                                            </td>
+                                            <!--end::Role=-->
                                             <!--begin::Role=-->
                                             <td>
                                                 <a class="text-gray-800 text-hover-primary mb-1">{{ $row->title }}</a><br>

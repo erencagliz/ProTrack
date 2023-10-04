@@ -349,14 +349,16 @@ License: For each use you must have a valid license purchased only from above li
                             <div class="flex-lg-row-fluid ms-lg-15">
                                 <!--begin:::Tabs-->
                                 <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
+                                    @if(tr_project_type($detail->project_id) == "sale")
+                                        <!--begin:::Tab item-->
+                                        <li class="nav-item">
+                                            <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#satis">Satış Listesi</a>
+                                        </li>
+                                        <!--end:::Tab item-->
+                                    @endif
                                     <!--begin:::Tab item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#satis">Satış Listesi</a>
-                                    </li>
-                                    <!--end:::Tab item-->
-                                    <!--begin:::Tab item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#yapilacak">Yapılacak Listesi</a>
+                                        <a class="nav-link text-active-primary pb-4 @if(tr_project_type($detail->project_id) !== "sale") active @endif" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#yapilacak">Yapılacak Listesi</a>
                                     </li>
                                     <!--end:::Tab item-->
                                     <!--begin:::Tab item-->
@@ -388,333 +390,335 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end:::Tabs-->
                                 <!--begin:::Tab content -->
                                 <div class="tab-content" id="myTabContent">
-                                    <!--begin:::Tab pane-->
-                                    <div class="tab-pane fade show active" id="satis" role="tabpanel">
-                                        @if(tr_project_type($detail->project_id) == "sale")
-                                            @php
-                                                $projects = \App\Models\Project::query()->where(['type' => 'sale'])->get();
-                                                $offices = \App\Models\Office::query()->get();
-                                                $products = \App\Models\Product::query()->get();
-                                                $start_date = request()->start_date;
-                                                $end_date = request()->end_date;
-                                                $status = request()->status;
-                                                $office_id = request()->office_id;
-                                                $project_id = request()->project_id;
-                                                $user_id = request()->user_id;
-                                                $product_id = request()->product_id;
-                                                $sales = \App\Models\Sale::query()
-                                                ->select('sales.*', 'products.name as product_name', 'products.title as product_title')
-                                                ->join('products', 'products.id', '=', 'sales.product_id')
-                                                ->join('projects', 'projects.id', '=', 'sales.project_id')
-                                                ->where(function ($query) use ($start_date, $end_date, $status, $office_id, $product_id, $project_id, $user) {
-                                                    if ($start_date) {
-                                                        $query->where('sales.created_at', '>=', $start_date.' 00:00:00');
-                                                    }
-                                                    if ($end_date) {
-                                                        $query->where('sales.created_at', '<=', $end_date.' 23:59:59');
-                                                    }
-                                                    if ($status) {
-                                                        $query->where('sales.status', $status);
-                                                    }
-                                                    if ($office_id) {
-                                                        $query->where('sales.office_id', $office_id);
-                                                    }
-                                                    if ($product_id) {
-                                                        $query->where('sales.product_id', $product_id);
-                                                    }
-                                                    if ($project_id) {
-                                                        $query->where('sales.project_id', $project_id);
-                                                    }
-                                                    $query->where('sales.user_id', $user->id);
-                                                })
-                                                ->orderBy('sales.created_at', 'desc')
-                                                ->get();
-                                                $sale_count = \App\Models\Sale::query()->where(['user_id' => $user->id, 'status' => 'active'])->count();
-                                            @endphp
-                                            <!--begin::Products-->
-                                            <div class="card card-flush mb-6 mb-xl-9">
-                                                <!--begin::Card header-->
-                                                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                                                    <!--begin::Card title-->
-                                                    <div class="card-title flex-column">
-                                                        <h2 class="mb-1">Kullanıcının Satış Listesi</h2>
-                                                        <div class="fs-6 fw-semibold text-muted">
-                                                            @if (count($sales) == 0)
-                                                                Kullanıcının hiç satışı yok.
-                                                            @else
-                                                                Kullanıcının toplamda {{ count($sales) }} tane satışı bulunmakta.
-                                                            @endif
+                                    @if(tr_project_type($detail->project_id) == "sale")
+                                        <!--begin:::Tab pane-->
+                                        <div class="tab-pane fade show active" id="satis" role="tabpanel">
+                                            @if(tr_project_type($detail->project_id) == "sale")
+                                                @php
+                                                    $projects = \App\Models\Project::query()->where(['type' => 'sale'])->get();
+                                                    $offices = \App\Models\Office::query()->get();
+                                                    $products = \App\Models\Product::query()->get();
+                                                    $start_date = request()->start_date;
+                                                    $end_date = request()->end_date;
+                                                    $status = request()->status;
+                                                    $office_id = request()->office_id;
+                                                    $project_id = request()->project_id;
+                                                    $user_id = request()->user_id;
+                                                    $product_id = request()->product_id;
+                                                    $sales = \App\Models\Sale::query()
+                                                    ->select('sales.*', 'products.name as product_name', 'products.title as product_title')
+                                                    ->join('products', 'products.id', '=', 'sales.product_id')
+                                                    ->join('projects', 'projects.id', '=', 'sales.project_id')
+                                                    ->where(function ($query) use ($start_date, $end_date, $status, $office_id, $product_id, $project_id, $user) {
+                                                        if ($start_date) {
+                                                            $query->where('sales.created_at', '>=', $start_date.' 00:00:00');
+                                                        }
+                                                        if ($end_date) {
+                                                            $query->where('sales.created_at', '<=', $end_date.' 23:59:59');
+                                                        }
+                                                        if ($status) {
+                                                            $query->where('sales.status', $status);
+                                                        }
+                                                        if ($office_id) {
+                                                            $query->where('sales.office_id', $office_id);
+                                                        }
+                                                        if ($product_id) {
+                                                            $query->where('sales.product_id', $product_id);
+                                                        }
+                                                        if ($project_id) {
+                                                            $query->where('sales.project_id', $project_id);
+                                                        }
+                                                        $query->where('sales.user_id', $user->id);
+                                                    })
+                                                    ->orderBy('sales.created_at', 'desc')
+                                                    ->get();
+                                                    $sale_count = \App\Models\Sale::query()->where(['user_id' => $user->id, 'status' => 'active'])->count();
+                                                @endphp
+                                                <!--begin::Products-->
+                                                <div class="card card-flush mb-6 mb-xl-9">
+                                                    <!--begin::Card header-->
+                                                    <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                                        <!--begin::Card title-->
+                                                        <div class="card-title flex-column">
+                                                            <h2 class="mb-1">Kullanıcının Satış Listesi</h2>
+                                                            <div class="fs-6 fw-semibold text-muted">
+                                                                @if (count($sales) == 0)
+                                                                    Kullanıcının hiç satışı yok.
+                                                                @else
+                                                                    Kullanıcının toplamda {{ count($sales) }} tane satışı bulunmakta.
+                                                                @endif
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <!--end::Card title-->
-                                                    <!--begin::Card toolbar-->
-                                                    <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                                                        <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor"></path>
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->
-                                                            Filtre
-                                                        </button>
-                                                        <form method="get" action="" id="filter_form" class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true" style="">
-                                                            <!--begin::Header-->
-                                                            <div class="px-7 py-5">
-                                                                <div class="fs-5 text-dark fw-bold">Filtre</div>
-                                                            </div>
-                                                            <!--end::Header-->
-                                                            <!--begin::Separator-->
-                                                            <div class="separator border-gray-200"></div>
-                                                            <!--end::Separator-->
-                                                            <!--begin::Content-->
-                                                            <div class="px-7 py-5 row" data-kt-user-table-filter="form">
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-5">
-                                                                    <label class="form-label fs-6 fw-semibold">Başlangıç Tarihi:</label>
-                                                                    <input  value="{{ $_GET['start_date'] }}" class="form-control form-control-solid rounded rounded-end-0" name="start_date" type="date" placeholder="Başlangıç Tarihi" id="" />
+                                                        <!--end::Card title-->
+                                                        <!--begin::Card toolbar-->
+                                                        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                                                            <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                                <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
+                                                                <span class="svg-icon svg-icon-2">
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor"></path>
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                                Filtre
+                                                            </button>
+                                                            <form method="get" action="" id="filter_form" class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true" style="">
+                                                                <!--begin::Header-->
+                                                                <div class="px-7 py-5">
+                                                                    <div class="fs-5 text-dark fw-bold">Filtre</div>
                                                                 </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-5">
-                                                                    <label class="form-label fs-6 fw-semibold">Bitiş Tarihi:</label>
-                                                                    <input value="{{ $_GET['end_date'] }}" class="form-control form-control-solid rounded rounded-end-0" name="end_date" type="date" placeholder="Bitiş Tarihi" id="" />
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-5">
-                                                                    <label class="form-label fs-6 fw-semibold">Durum:</label>
-                                                                    <!--begin::Select2-->
-                                                                    <select name="status" class="form-select form-select-solid" data-control="select2" >
-                                                                        <option selected value="">Seçiniz...</option>
-                                                                        <option {{ $_GET['status'] == "active" ? "selected" : "" }} value="active">Aktif</option>
-                                                                        <option {{ $_GET['status'] == "passive" ? "selected" : "" }} value="passive">Pasif</option>
-                                                                        <option {{ $_GET['status'] == "pending" ? "selected" : "" }} value="pending">Beklemede</option>
-                                                                    </select>
-                                                                    <!--end::Select2-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-5">
-                                                                    <label class="form-label fs-6 fw-semibold">Ofis:</label>
-                                                                    <!--begin::Select2-->
-                                                                    <select  name="office_id" class="form-select form-select-solid" data-control="select2" >
-                                                                        <option selected value="">Seçiniz...</option>
-                                                                        @foreach($offices as $row)
-                                                                            <option {{ $_GET['office_id'] == $row->id ? "selected" : "" }} value="{{ $row->id }}">{{ $row->title }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    <!--end::Select2-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-5">
-                                                                    <label class="form-label fs-6 fw-semibold">Proje:</label>
-                                                                    <!--begin::Select2-->
-                                                                    <select  name="project_id" class="form-select form-select-solid" data-control="select2" >
-                                                                        <option selected value="">Seçiniz...</option>
-                                                                        @foreach($projects as $row)
-                                                                            <option  {{ $_GET['project_id'] == $row->id ? "selected" : "" }} value="{{ $row->id }}">{{ $row->title }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    <!--end::Select2-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-5">
-                                                                    <label class="form-label fs-6 fw-semibold">Ürün:</label>
-                                                                    <!--begin::Select2-->
-                                                                    <select name="product_id" class="form-select form-select-solid" data-control="select2">
-                                                                        <option selected value="">Seçiniz...</option>
-                                                                        @foreach($products as $row)
-                                                                            <option  {{ $_GET['product_id'] == $row->id ? "selected" : "" }} value="{{ $row->id }}">{{ $row->name }} ({{ $row->title }})</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    <!--end::Select2-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Actions-->
-                                                                <div class="d-flex justify-content-end">
-                                                                    <a href="{{ route('sales.all-sales') }}" class="btn btn-light mx-3 fw-semibold px-6" >Sıfırla</a>
-                                                                    <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true">Uygula</button>
-                                                                </div>
-                                                                <!--end::Actions-->
-                                                            </div>
-                                                            <!--end::Content-->
-                                                        </form>
-                                                        <!--begin::Flatpickr-->
-                                                    </div>
-                                                    <!--end::Card toolbar-->
-                                                </div>
-                                                <!--end::Card header-->
-                                                <!--begin::Card body-->
-                                                <div class="card-body pt-0">
-                                                    <!--begin::Table-->
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_sales_table">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                        <!--begin::Table row-->
-                                                        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                                            <th class="">
-                                                                #
-                                                            </th>
-                                                            <th class="">Müşteri Temsilcisi</th>
-                                                            <th class="">Ürün</th>
-                                                            <th class="">Adet</th>
-                                                            <th class="">Puan</th>
-                                                            <th class="">Detaylar</th>
-                                                            <th class="">Durum</th>
-                                                            <th class="">Eklenme Tarihi</th>
-                                                            <th class="">Son Düzenlenme Tarihi</th>
-                                                            <th class="text-end">İşlemler</th>
-                                                        </tr>
-                                                        <!--end::Table row-->
-                                                        </thead>
-                                                        <!--end::Table head-->
-                                                        <!--begin::Table body-->
-                                                        <tbody class="fw-semibold text-gray-600">
-                                                        @foreach($sales as $row)
-                                                            <!--begin::Table row-->
-                                                            <tr>
-                                                                <!--begin::Checkbox-->
-                                                                <td>
-                                                                    {{ $row->id }}
-                                                                </td>
-                                                                <!--end::Checkbox-->
-                                                                <!--begin::Customer=-->
-                                                                <td>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <!--begin:: Avatar -->
-                                                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                                            <a>
-                                                                                <div class="symbol-label">
-                                                                                    <img src="{{ tr_user_image($row->user_id) }}" alt="Ethan Wilder" class="w-100" />
-                                                                                </div>
-                                                                            </a>
-                                                                        </div>
-                                                                        <!--end::Avatar-->
-                                                                        <div class="ms-5">
-                                                                            <!--begin::Title-->
-                                                                            <a class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ tr_user_fullname($row->user_id) }}</a>
-                                                                            <!--end::Title-->
-                                                                            <br>
-                                                                            {{ tr_project_title($row->project_id) }}
-                                                                            /
-                                                                            {{ tr_office_title($row->office_id) }}
-                                                                        </div>
+                                                                <!--end::Header-->
+                                                                <!--begin::Separator-->
+                                                                <div class="separator border-gray-200"></div>
+                                                                <!--end::Separator-->
+                                                                <!--begin::Content-->
+                                                                <div class="px-7 py-5 row" data-kt-user-table-filter="form">
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-5">
+                                                                        <label class="form-label fs-6 fw-semibold">Başlangıç Tarihi:</label>
+                                                                        <input  value="{{ $_GET['start_date'] }}" class="form-control form-control-solid rounded rounded-end-0" name="start_date" type="date" placeholder="Başlangıç Tarihi" id="" />
                                                                     </div>
-                                                                </td>
-                                                                <!--end::Customer=-->
-                                                                <!--begin::Customer=-->
-                                                                <td>
-                                                                    <a class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $row->product_title }} - {{ $row->product_name }}</a>
-                                                                </td>
-                                                                <!--end::Customer=-->
-                                                                <!--begin::Customer=-->
-                                                                <td>
-                                                                    {{ $row->quantity }}
-                                                                </td>
-                                                                <!--end::Customer=-->
-                                                                <!--begin::Customer=-->
-                                                                <td>
-                                                                    {{ $row->point }}
-                                                                </td>
-                                                                <!--end::Customer=-->
-                                                                <!--begin::Customer=-->
-                                                                <td>
-                                                                    @php
-                                                                        $json = json_decode($row->custom, true);
-                                                                        if ($json) {
-                                                                            foreach ($json as $key => $value) {
-                                                                                if ($key == "iban_verify") {
-                                                                                    if ($value == true) {
-                                                                                        echo "<div class='badge badge-success'>IBAN Var</div><br>";
-                                                                                    }
-                                                                                } elseif ($key == "sms_verify") {
-                                                                                    if ($value == true) {
-                                                                                        echo "<div class='badge badge-success'>SMS & E-posta Onaylı</div><br>";
-                                                                                    }
-                                                                                } elseif ($key == "customer_phone") {
-                                                                                    if ($value == true) {
-                                                                                        echo "<div class='badge badge-success'>".$value."</div><br>";
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-5">
+                                                                        <label class="form-label fs-6 fw-semibold">Bitiş Tarihi:</label>
+                                                                        <input value="{{ $_GET['end_date'] }}" class="form-control form-control-solid rounded rounded-end-0" name="end_date" type="date" placeholder="Bitiş Tarihi" id="" />
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-5">
+                                                                        <label class="form-label fs-6 fw-semibold">Durum:</label>
+                                                                        <!--begin::Select2-->
+                                                                        <select name="status" class="form-select form-select-solid" data-control="select2" >
+                                                                            <option selected value="">Seçiniz...</option>
+                                                                            <option {{ $_GET['status'] == "active" ? "selected" : "" }} value="active">Aktif</option>
+                                                                            <option {{ $_GET['status'] == "passive" ? "selected" : "" }} value="passive">Pasif</option>
+                                                                            <option {{ $_GET['status'] == "pending" ? "selected" : "" }} value="pending">Beklemede</option>
+                                                                        </select>
+                                                                        <!--end::Select2-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-5">
+                                                                        <label class="form-label fs-6 fw-semibold">Ofis:</label>
+                                                                        <!--begin::Select2-->
+                                                                        <select  name="office_id" class="form-select form-select-solid" data-control="select2" >
+                                                                            <option selected value="">Seçiniz...</option>
+                                                                            @foreach($offices as $row)
+                                                                                <option {{ $_GET['office_id'] == $row->id ? "selected" : "" }} value="{{ $row->id }}">{{ $row->title }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        <!--end::Select2-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-5">
+                                                                        <label class="form-label fs-6 fw-semibold">Proje:</label>
+                                                                        <!--begin::Select2-->
+                                                                        <select  name="project_id" class="form-select form-select-solid" data-control="select2" >
+                                                                            <option selected value="">Seçiniz...</option>
+                                                                            @foreach($projects as $row)
+                                                                                <option  {{ $_GET['project_id'] == $row->id ? "selected" : "" }} value="{{ $row->id }}">{{ $row->title }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        <!--end::Select2-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-5">
+                                                                        <label class="form-label fs-6 fw-semibold">Ürün:</label>
+                                                                        <!--begin::Select2-->
+                                                                        <select name="product_id" class="form-select form-select-solid" data-control="select2">
+                                                                            <option selected value="">Seçiniz...</option>
+                                                                            @foreach($products as $row)
+                                                                                <option  {{ $_GET['product_id'] == $row->id ? "selected" : "" }} value="{{ $row->id }}">{{ $row->name }} ({{ $row->title }})</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        <!--end::Select2-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Actions-->
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <a href="{{ route('sales.all-sales') }}" class="btn btn-light mx-3 fw-semibold px-6" >Sıfırla</a>
+                                                                        <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true">Uygula</button>
+                                                                    </div>
+                                                                    <!--end::Actions-->
+                                                                </div>
+                                                                <!--end::Content-->
+                                                            </form>
+                                                            <!--begin::Flatpickr-->
+                                                        </div>
+                                                        <!--end::Card toolbar-->
+                                                    </div>
+                                                    <!--end::Card header-->
+                                                    <!--begin::Card body-->
+                                                    <div class="card-body pt-0">
+                                                        <!--begin::Table-->
+                                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_sales_table">
+                                                            <!--begin::Table head-->
+                                                            <thead>
+                                                            <!--begin::Table row-->
+                                                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                                                <th class="">
+                                                                    #
+                                                                </th>
+                                                                <th class="">Müşteri Temsilcisi</th>
+                                                                <th class="">Ürün</th>
+                                                                <th class="">Adet</th>
+                                                                <th class="">Puan</th>
+                                                                <th class="">Detaylar</th>
+                                                                <th class="">Durum</th>
+                                                                <th class="">Eklenme Tarihi</th>
+                                                                <th class="">Son Düzenlenme Tarihi</th>
+                                                                <th class="text-end">İşlemler</th>
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            </thead>
+                                                            <!--end::Table head-->
+                                                            <!--begin::Table body-->
+                                                            <tbody class="fw-semibold text-gray-600">
+                                                            @foreach($sales as $row)
+                                                                <!--begin::Table row-->
+                                                                <tr>
+                                                                    <!--begin::Checkbox-->
+                                                                    <td>
+                                                                        {{ $row->id }}
+                                                                    </td>
+                                                                    <!--end::Checkbox-->
+                                                                    <!--begin::Customer=-->
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <!--begin:: Avatar -->
+                                                                            <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                                                <a>
+                                                                                    <div class="symbol-label">
+                                                                                        <img src="{{ tr_user_image($row->user_id) }}" alt="Ethan Wilder" class="w-100" />
+                                                                                    </div>
+                                                                                </a>
+                                                                            </div>
+                                                                            <!--end::Avatar-->
+                                                                            <div class="ms-5">
+                                                                                <!--begin::Title-->
+                                                                                <a class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ tr_user_fullname($row->user_id) }}</a>
+                                                                                <!--end::Title-->
+                                                                                <br>
+                                                                                {{ tr_project_title($row->project_id) }}
+                                                                                /
+                                                                                {{ tr_office_title($row->office_id) }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <!--end::Customer=-->
+                                                                    <!--begin::Customer=-->
+                                                                    <td>
+                                                                        <a class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $row->product_title }} - {{ $row->product_name }}</a>
+                                                                    </td>
+                                                                    <!--end::Customer=-->
+                                                                    <!--begin::Customer=-->
+                                                                    <td>
+                                                                        {{ $row->quantity }}
+                                                                    </td>
+                                                                    <!--end::Customer=-->
+                                                                    <!--begin::Customer=-->
+                                                                    <td>
+                                                                        {{ $row->point }}
+                                                                    </td>
+                                                                    <!--end::Customer=-->
+                                                                    <!--begin::Customer=-->
+                                                                    <td>
+                                                                        @php
+                                                                            $json = json_decode($row->custom, true);
+                                                                            if ($json) {
+                                                                                foreach ($json as $key => $value) {
+                                                                                    if ($key == "iban_verify") {
+                                                                                        if ($value == true) {
+                                                                                            echo "<div class='badge badge-success'>IBAN Var</div><br>";
+                                                                                        }
+                                                                                    } elseif ($key == "sms_verify") {
+                                                                                        if ($value == true) {
+                                                                                            echo "<div class='badge badge-success'>SMS & E-posta Onaylı</div><br>";
+                                                                                        }
+                                                                                    } elseif ($key == "customer_phone") {
+                                                                                        if ($value == true) {
+                                                                                            echo "<div class='badge badge-success'>".$value."</div><br>";
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             }
-                                                                        }
-                                                                    @endphp
-                                                                </td>
-                                                                <!--end::Customer=-->
-                                                                <!--begin::Status=-->
-                                                                <td class="pe-0">
-                                                                    <!--begin::Badges-->
-                                                                    <div class="badge badge-light-{{ tr_status_class($row->status) }}">{{ tr_status_beautify($row->status) }}</div>
-                                                                    <!--end::Badges-->
-                                                                </td>
-                                                                <!--end::Status=-->
-                                                                <!--begin::Date Added=-->
-                                                                <td class="">
-                                                                    <span class="fw-bold">{{ \Carbon\Carbon::createFromDate($row->created_at)->translatedFormat('j F Y, H:i:s') }}</span>
-                                                                </td>
-                                                                <!--end::Date Added=-->
-                                                                <!--begin::Date Modified=-->
-                                                                <td class="">
-                                                                    <span class="fw-bold">{{ \Carbon\Carbon::createFromDate($row->updated_at)->translatedFormat('j F Y, H:i:s') }}</span>
-                                                                </td>
-                                                                <!--end::Date Modified=-->
-                                                                <!--begin::Action=-->
-                                                                <td class="text-end">
-                                                                    <a href="javascript:void(0);" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">İşlemler
-                                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
-															</svg>
-														</span>
-                                                                        <!--end::Svg Icon--></a>
-                                                                    <!--begin::Menu-->
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                                                        @if($row->status !== "passive")
-                                                                            <!--begin::Menu item-->
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{ route('sales.all-sales.delete', ['id' => $row->id]) }}" class=" menu-link px-3">Pasifleştir</a>
-                                                                            </div>
-                                                                            <!--end::Menu item-->
-                                                                        @endif
-                                                                        @if($row->status !== "active")
-                                                                            <!--begin::Menu item-->
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{ route('sales.all-sales.active', ['id' => $row->id]) }}" class=" menu-link px-3">Aktifleştir</a>
-                                                                            </div>
-                                                                            <!--end::Menu item-->
-                                                                        @endif
-                                                                        @if($row->status !== "pending")
-                                                                            <!--begin::Menu item-->
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{ route('sales.all-sales.pending', ['id' => $row->id]) }}" class=" menu-link px-3">Beklemeye Al</a>
-                                                                            </div>
-                                                                            <!--end::Menu item-->
-                                                                        @endif
-                                                                    </div>
-                                                                    <!--end::Menu-->
-                                                                </td>
-                                                                <!--end::Action=-->
-                                                            </tr>
-                                                            <!--end::Table row-->
-                                                        @endforeach
-                                                        </tbody>
-                                                        <!--end::Table body-->
-                                                    </table>
-                                                    <!--end::Table-->
+                                                                        @endphp
+                                                                    </td>
+                                                                    <!--end::Customer=-->
+                                                                    <!--begin::Status=-->
+                                                                    <td class="pe-0">
+                                                                        <!--begin::Badges-->
+                                                                        <div class="badge badge-light-{{ tr_status_class($row->status) }}">{{ tr_status_beautify($row->status) }}</div>
+                                                                        <!--end::Badges-->
+                                                                    </td>
+                                                                    <!--end::Status=-->
+                                                                    <!--begin::Date Added=-->
+                                                                    <td class="">
+                                                                        <span class="fw-bold">{{ \Carbon\Carbon::createFromDate($row->created_at)->translatedFormat('j F Y, H:i:s') }}</span>
+                                                                    </td>
+                                                                    <!--end::Date Added=-->
+                                                                    <!--begin::Date Modified=-->
+                                                                    <td class="">
+                                                                        <span class="fw-bold">{{ \Carbon\Carbon::createFromDate($row->updated_at)->translatedFormat('j F Y, H:i:s') }}</span>
+                                                                    </td>
+                                                                    <!--end::Date Modified=-->
+                                                                    <!--begin::Action=-->
+                                                                    <td class="text-end">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">İşlemler
+                                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
+                                                                </svg>
+                                                            </span>
+                                                                            <!--end::Svg Icon--></a>
+                                                                        <!--begin::Menu-->
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                                                            @if($row->status !== "passive")
+                                                                                <!--begin::Menu item-->
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{ route('sales.all-sales.delete', ['id' => $row->id]) }}" class=" menu-link px-3">Pasifleştir</a>
+                                                                                </div>
+                                                                                <!--end::Menu item-->
+                                                                            @endif
+                                                                            @if($row->status !== "active")
+                                                                                <!--begin::Menu item-->
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{ route('sales.all-sales.active', ['id' => $row->id]) }}" class=" menu-link px-3">Aktifleştir</a>
+                                                                                </div>
+                                                                                <!--end::Menu item-->
+                                                                            @endif
+                                                                            @if($row->status !== "pending")
+                                                                                <!--begin::Menu item-->
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{ route('sales.all-sales.pending', ['id' => $row->id]) }}" class=" menu-link px-3">Beklemeye Al</a>
+                                                                                </div>
+                                                                                <!--end::Menu item-->
+                                                                            @endif
+                                                                        </div>
+                                                                        <!--end::Menu-->
+                                                                    </td>
+                                                                    <!--end::Action=-->
+                                                                </tr>
+                                                                <!--end::Table row-->
+                                                            @endforeach
+                                                            </tbody>
+                                                            <!--end::Table body-->
+                                                        </table>
+                                                        <!--end::Table-->
+                                                    </div>
+                                                    <!--end::Card body-->
                                                 </div>
-                                                <!--end::Card body-->
-                                            </div>
-                                            <!--end::Products-->
-                                        @endif
-                                    </div>
-                                    <!--end:::Tab pane-->
+                                                <!--end::Products-->
+                                            @endif
+                                        </div>
+                                        <!--end:::Tab pane-->
+                                    @endif
                                     <!--begin:::Tab pane-->
-                                    <div class="tab-pane fade" id="yetkiler" role="tabpanel">
+                                    <div class="tab-pane fade " id="yetkiler" role="tabpanel">
                                         <!--begin::Card-->
                                         <form method="post" action="{{ route('users.edit.perm_post') }}" class="card mb-6 mb-xl-9">
                                             @csrf
@@ -807,7 +811,7 @@ License: For each use you must have a valid license purchased only from above li
                                     </div>
                                     <!--end:::Tab pane-->
                                     <!--begin:::Tab pane-->
-                                    <div class="tab-pane fade" id="yapilacak" role="tabpanel">
+                                    <div class="tab-pane fade @if(tr_project_type($detail->project_id) !== "sale") show active @endif" id="yapilacak" role="tabpanel">
                                         <!--begin::Tasks-->
                                         <div class="card card-flush mb-6 mb-xl-9">
                                             <!--begin::Card header-->

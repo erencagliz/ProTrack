@@ -308,14 +308,16 @@ License: For each use you must have a valid license purchased only from above li
                             <div class="flex-lg-row-fluid ms-lg-15">
                                 <!--begin:::Tabs-->
                                 <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
+                                    @if(tr_project_type($detail->project_id) == "sale")
+                                        <!--begin:::Tab item-->
+                                        <li class="nav-item">
+                                            <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#satis">Satış Listesi</a>
+                                        </li>
+                                        <!--end:::Tab item-->
+                                    @endif
                                     <!--begin:::Tab item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#satis">Satış Listesi</a>
-                                    </li>
-                                    <!--end:::Tab item-->
-                                    <!--begin:::Tab item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#yapilacak">Yapılacak Listesi</a>
+                                        <a class="nav-link text-active-primary pb-4 @if(tr_project_type($detail->project_id) !== "sale") active @endif" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#yapilacak">Yapılacak Listesi</a>
                                     </li>
                                     <!--end:::Tab item-->
                                     <!--begin:::Tab item-->
@@ -631,7 +633,7 @@ License: For each use you must have a valid license purchased only from above li
                                     </div>
                                     <!--end:::Tab pane-->
                                     <!--begin:::Tab pane-->
-                                    <div class="tab-pane fade" id="yapilacak" role="tabpanel">
+                                    <div class="tab-pane fade @if(tr_project_type($detail->project_id) !== "sale") show active @endif" id="yapilacak" role="tabpanel">
                                         <!--begin::Tasks-->
                                         <div class="card card-flush mb-6 mb-xl-9">
                                             <!--begin::Card header-->
