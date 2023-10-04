@@ -110,8 +110,26 @@ License: For each use you must have a valid license purchased only from above li
                         <!--end::Page title-->
                         <!--begin::Action group-->
                         <div class="d-flex align-items-stretch overflow-auto pt-3 pt-lg-0">
+                            <form id="toolbar_form_date" method="get" class="d-flex align-items-stretch overflow-auto pt-3 pt-lg-0">
+                                <!--begin::Action wrapper-->
+                                <div class="d-flex align-items-center" style="margin-right: 1.25rem">
+                                    <!--begin::Label-->
+                                    <span class="fs-7 fw-bold text-gray-700 pe-4 text-nowrap d-none d-xxl-block">Proje:</span>
+                                    <!--end::Label-->
+                                    <!--begin::Select-->
+                                    <select onchange="$('#toolbar_form_date').submit();" class="form-control form-control-solid rounded rounded-end-0" name="project_id">
+                                        <option value="">Seçiniz...</option>
+                                        @foreach(\App\Models\Project::query()->where(['status' => 'active', 'type' => 'sale'])->get() as $projectx)
+                                            <option {{ $projectx->id == 2 && !request()->project_id ? "selected" : "" }} {{ request()->project_id == $projectx->id ? "selected" : "" }} value="{{ $projectx->id }}">{{ $projectx->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    <!--end::Select-->
+                                </div>
+                                <!--end::Action wrapper-->
+                            </form>
                             <!--begin::Action wrapper-->
                             <div class="d-flex align-items-center">
+                                <div class="bullet bg-secondary h-35px w-1px mx-5"></div>
                                 <!--begin::Label-->
                                 <span class="fs-7 text-gray-700 fw-bold pe-3 d-none d-xxl-block">Hızlı Araçlar:</span>
                                 <!--end::Label-->
@@ -246,7 +264,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <div class="d-flex flex-column">
                                                 <!--begin::Status-->
                                                 <div class="d-flex align-items-center mb-1">
-                                                    <a href="javascript:void();" class="text-gray-800 text-hover-primary fs-2 fw-bold me-3">{{ $project->title }}</a>
+                                                    <a href="javascript:void(0);" class="text-gray-800 text-hover-primary fs-2 fw-bold me-3">{{ $project->title }}</a>
                                                     <span class="badge badge-{{ tr_status_class($project->status) }} me-auto">{{ tr_status_beautify($project->status) }} Proje</span>
                                                 </div>
                                                 <!--end::Status-->
@@ -376,46 +394,6 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Wrapper-->
                                 </div>
                                 <!--end::Details-->
-                                <div class="separator"></div>
-                                <!--begin::Nav-->
-                                <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary py-5 me-6 active" href="../../demo8/dist/apps/projects/project.html">Overview</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary py-5 me-6" href="../../demo8/dist/apps/projects/targets.html">Targets</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary py-5 me-6" href="../../demo8/dist/apps/projects/budget.html">Budget</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary py-5 me-6" href="../../demo8/dist/apps/projects/users.html">Users</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary py-5 me-6" href="../../demo8/dist/apps/projects/files.html">Files</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary py-5 me-6" href="../../demo8/dist/apps/projects/activity.html">Activity</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary py-5 me-6" href="../../demo8/dist/apps/projects/settings.html">Settings</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                </ul>
-                                <!--end::Nav-->
                             </div>
                         </div>
                         <!--end::Navbar-->
@@ -477,7 +455,7 @@ License: For each use you must have a valid license purchased only from above li
                                                         <!--begin::Wrapper-->
                                                         <div class="d-flex flex-wrap">
                                                             <!--begin::Chart-->
-                                                            <div class="position-relative d-flex flex-center h-175px w-175px me-15">
+                                                            <div class="position-relative d-flex flex-center h-175px w-175px me-2">
                                                                 <div class="position-absolute translate-middle start-50 top-50 d-flex flex-column flex-center">
                                                                     <span class="fs-2qx fw-bold">{{ $target->target }}</span>
                                                                     <span class="fs-6 fw-semibold text-gray-400">Hedef</span>
@@ -491,9 +469,9 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <div class="d-flex fs-6 fw-semibold align-items-center mb-3">
                                                                     <h3 class="d-flex justify-content-center">
                                                                         @if($target->type == 'team')
-                                                                            Takım Hedefi <span class="badge badge-primary mx-2">{{ tr_office_title($target->office_id) }}</span>
+                                                                            Takım Hedefi <span class="badge badge-primary mx-2">{{ \Carbon\Carbon::createFromDate($target->start_date)->translatedFormat('j F') }} - {{ \Carbon\Carbon::createFromDate($target->end_date)->translatedFormat('j F') }}</span> <span class="badge badge-primary">{{ tr_office_title($target->office_id) }}</span>
                                                                         @elseif($target->type == 'project')
-                                                                            Proje Hedefi
+                                                                            Proje Hedefi <span class="badge badge-primary mx-2">{{ \Carbon\Carbon::createFromDate($target->start_date)->translatedFormat('j F') }} - {{ \Carbon\Carbon::createFromDate($target->end_date)->translatedFormat('j F') }}</span>
                                                                         @endif
                                                                     </h3>
                                                                 </div>
@@ -523,7 +501,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Carousel-->
 
                                             <!--begin::Heading-->
-                                            <div class="d-flex align-items-center justify-content-center flex-wrap pb-5">
+                                            <div class="d-flex align-items-center justify-content-center flex-wrap">
                                                 <!--begin::Carousel Indicators-->
                                                 <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
                                                     @php $sayi2 = -1; @endphp
@@ -536,21 +514,6 @@ License: For each use you must have a valid license purchased only from above li
                                             </div>
                                             <!--end::Heading-->
                                         </div>
-
-                                        <!--begin::Notice-->
-                                        <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
-                                            <!--begin::Wrapper-->
-                                            <div class="d-flex flex-stack flex-grow-1">
-                                                <!--begin::Content-->
-                                                <div class="fw-semibold">
-                                                    <div class="fs-6 text-gray-700">
-                                                        <a href="#" class="fw-bold me-1">Invite New .NET Collaborators</a>to create great outstanding business to business .jsp modutr class scripts</div>
-                                                </div>
-                                                <!--end::Content-->
-                                            </div>
-                                            <!--end::Wrapper-->
-                                        </div>
-                                        <!--end::Notice-->
                                     </div>
                                     <!--end::Card body-->
                                 </div>
@@ -559,54 +522,27 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::Col-->
                             <!--begin::Col-->
                             <div class="col-lg-6">
-                                <!--begin::Graph-->
-                                <div class="card card-flush h-lg-100">
-                                    <!--begin::Card header-->
-                                    <div class="card-header mt-6">
-                                        <!--begin::Card title-->
-                                        <div class="card-title flex-column">
-                                            <h3 class="fw-bold mb-1">Tasks Over Time</h3>
-                                            <!--begin::Labels-->
-                                            <div class="fs-6 d-flex text-gray-400 fs-6 fw-semibold">
-                                                <!--begin::Label-->
-                                                <div class="d-flex align-items-center me-6">
-														<span class="menu-bullet d-flex align-items-center me-2">
-															<span class="bullet bg-success"></span>
-														</span>Complete</div>
-                                                <!--end::Label-->
-                                                <!--begin::Label-->
-                                                <div class="d-flex align-items-center">
-														<span class="menu-bullet d-flex align-items-center me-2">
-															<span class="bullet bg-primary"></span>
-														</span>Incomplete</div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Labels-->
-                                        </div>
-                                        <!--end::Card title-->
-                                        <!--begin::Card toolbar-->
-                                        <div class="card-toolbar">
-                                            <!--begin::Select-->
-                                            <select name="status" data-control="select2" data-hide-search="true" class="form-select form-select-solid form-select-sm fw-bold w-100px">
-                                                <option value="1">2020 Q1</option>
-                                                <option value="2">2020 Q2</option>
-                                                <option value="3" selected="selected">2020 Q3</option>
-                                                <option value="4">2020 Q4</option>
-                                            </select>
-                                            <!--end::Select-->
-                                        </div>
-                                        <!--end::Card toolbar-->
+                                <!--begin::Chart widget 36-->
+                                <div class="card card-flush overflow-hidden h-lg-100">
+                                    <!--begin::Header-->
+                                    <div class="card-header pt-5">
+                                        <!--begin::Title-->
+                                        <h3 class="card-title align-items-start flex-column">
+                                            <span class="card-label fw-bold text-dark">Satış Grafiği</span>
+                                            <span class="text-gray-400 mt-1 fw-semibold fs-6">Projeye ait satış grafiği.</span>
+                                        </h3>
+                                        <!--end::Title-->
                                     </div>
-                                    <!--end::Card header-->
+                                    <!--end::Header-->
                                     <!--begin::Card body-->
-                                    <div class="card-body pt-10 pb-0 px-5">
+                                    <div class="card-body d-flex align-items-end p-0">
                                         <!--begin::Chart-->
-                                        <div id="kt_project_overview_graph" class="card-rounded-bottom" style="height: 300px"></div>
+                                        <div id="satisgrafigi" class="min-h-auto w-100 ps-4 pe-6" style="height: 270px"></div>
                                         <!--end::Chart-->
                                     </div>
                                     <!--end::Card body-->
                                 </div>
-                                <!--end::Graph-->
+                                <!--end::Chart widget 36-->
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -3852,7 +3788,6 @@ License: For each use you must have a valid license purchased only from above li
 <script src="{{ asset('trapp') }}/assets/js/custom/utilities/modals/new-target.js"></script>
 @livewireScripts
 @include('includes.errors')
-
 @php $sayi3 = 0; @endphp
 @foreach($targets as $target)
     @php
@@ -3927,7 +3862,177 @@ License: For each use you must have a valid license purchased only from above li
     var myChart{{ $sayi3 }} = new Chart(ctx{{ $sayi3 }}, config{{ $sayi3 }});
 </script>
 @endforeach
-
+<script>
+    @php $period = \Carbon\CarbonPeriod::create(date('Y-m-01'), date('Y-m-t')); @endphp
+    var e = document.getElementById("satisgrafigi");
+    if (e) {
+        var t = {
+                self: null,
+                rendered: !1
+            },
+            a = function() {
+                var a = parseInt(KTUtil.css(e, "height")),
+                    o = KTUtil.getCssVariableValue("--kt-gray-500"),
+                    r = KTUtil.getCssVariableValue("--kt-gray-200"),
+                    s = {
+                        series: [
+                            {
+                                name: "Toplam Satış Sayısı",
+                                data: [
+                                    @php
+                                        foreach ($period as $date) {
+                                            $created_date = \Carbon\Carbon::create($date);
+                                            if ($created_date->isWeekday() && $created_date->format('Y-m-d H:i:s') <= date('Y-m-d H:i:s')) {
+                                                echo "'";
+                                                echo tr_sales_between_dates([
+                                                    'start_date' => \Carbon\Carbon::createFromDate($date)->format('Y-m-d 00:00:00'),
+                                                    'end_date' => \Carbon\Carbon::createFromDate($date)->format('Y-m-d 23:59:59'),
+                                                    'returns' => 'quantity',
+                                                    'project_id' => $project->id,
+                                                    'type' => 'project',
+                                                ]);
+                                                echo "',";
+                                            }
+                                        }
+                                    @endphp
+                                ]
+                            },
+                            @foreach(\App\Models\Office::query()->where(['status' => 'active'])->get() as $office)
+                            {
+                                name: "{{ $office->title }} Satış Sayısı",
+                                data: [
+                                    @php
+                                        foreach ($period as $date) {
+                                            $created_date = \Carbon\Carbon::create($date);
+                                            if ($created_date->isWeekday() && $created_date->format('Y-m-d H:i:s') <= date('Y-m-d H:i:s')) {
+                                                echo "'";
+                                                echo tr_sales_between_dates([
+                                                    'start_date' => \Carbon\Carbon::createFromDate($date)->format('Y-m-d 00:00:00'),
+                                                    'end_date' => \Carbon\Carbon::createFromDate($date)->format('Y-m-d 23:59:59'),
+                                                    'returns' => 'quantity',
+                                                    'project_id' => $project->id,
+                                                    'office_id' => $office->id,
+                                                    'type' => 'office',
+                                                ]);
+                                                echo "',";
+                                            }
+                                        }
+                                    @endphp
+                                ]
+                            },
+                            @endforeach
+                        ],
+                        chart: {
+                            fontFamily: "inherit",
+                            type: "bar",
+                            height: a,
+                            toolbar: {
+                                show: !1
+                            }
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: !1,
+                                columnWidth: ["30%"],
+                                borderRadius: 4
+                            }
+                        },
+                        legend: {
+                            show: !1
+                        },
+                        dataLabels: {
+                            enabled: !1
+                        },
+                        stroke: {
+                            show: !0,
+                            width: 2,
+                            colors: ["transparent"]
+                        },
+                        xaxis: {
+                            categories: [
+                                @php
+                                    foreach ($period as $date) {
+                                        $created_date = \Carbon\Carbon::create($date);
+                                        if ($created_date->isWeekday()) {
+                                            echo "'";
+                                            echo \Carbon\Carbon::createFromDate($date)->translatedFormat('j F');
+                                            echo "',";
+                                        }
+                                    }
+                                @endphp
+                            ],
+                            axisBorder: {
+                                show: !1
+                            },
+                            axisTicks: {
+                                show: !1
+                            },
+                            labels: {
+                                style: {
+                                    colors: o,
+                                    fontSize: "12px"
+                                }
+                            }
+                        },
+                        yaxis: {
+                            labels: {
+                                style: {
+                                    colors: o,
+                                    fontSize: "12px"
+                                }
+                            }
+                        },
+                        fill: {
+                            opacity: 1
+                        },
+                        states: {
+                            normal: {
+                                filter: {
+                                    type: "none",
+                                    value: 0
+                                }
+                            },
+                            hover: {
+                                filter: {
+                                    type: "none",
+                                    value: 0
+                                }
+                            },
+                            active: {
+                                allowMultipleDataPointsSelection: !1,
+                                filter: {
+                                    type: "none",
+                                    value: 0
+                                }
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: "12px"
+                            },
+                            y: {
+                                formatter: function(e) {
+                                    return e + " Satış"
+                                }
+                            }
+                        },
+                        grid: {
+                            borderColor: r,
+                            strokeDashArray: 4,
+                            yaxis: {
+                                lines: {
+                                    show: !0
+                                }
+                            }
+                        }
+                    };
+                t.self = new ApexCharts(e, s), t.self.render(), t.rendered = !0
+            };
+        a(), KTThemeMode.on("kt.thememode.change", (function() {
+            t.rendered && t.self.destroy(), a()
+        }))
+    }
+</script>
 <!--end::Custom Javascript-->
 <!--end::Javascript-->
 </body>
