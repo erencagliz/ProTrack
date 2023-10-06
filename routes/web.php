@@ -24,7 +24,7 @@ Route::middleware(['auth', 'statuschecker'])->group(function () {
     Route::get('', [\App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');
     Route::get('calendar', [\App\Http\Controllers\Calendar::class, 'index'])->name('calendar');
     Route::get('teams', [\App\Http\Controllers\Teams::class, 'index'])->name('teams');
-    Route::get('reporting', [\App\Http\Controllers\Reporting::class, 'index'])->name('reporting');
+    Route::get('reports', [\App\Http\Controllers\Reporting::class, 'index'])->name('reporting');
     Route::get('profile', [\App\Http\Controllers\Profile::class, 'index'])->name('profile');
     Route::get('pauses', [\App\Http\Controllers\Pause\Listing::class, 'index'])->name('pauses');
     Route::prefix('sales')->group(function () {
