@@ -31,7 +31,7 @@ class Listing extends Controller
         $groups_active = UserGroup::query()->where(['status' => 'active'])->get();
         $offices_active = Office::query()->where(['status' => 'active'])->get();
 
-        $projects = Project::query()->get();
+        $projects = Project::query()->where(['status' => 'active'])->get();
         $offices = Office::query()->get();
         $users_for_filter = User::query()->get();
         $user_groups = UserGroup::query()->get();
