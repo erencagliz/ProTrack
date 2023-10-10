@@ -146,14 +146,14 @@ class Listing extends Controller
                 ]);
                 if ($add_details) {
                     $file = $request->file('image');
-                    $directory = base_path().'/'.env('UPLOADS_DIRECTION').'/users';
-                    $file_name = uniqid('triooz_');
-                    $file->move($directory,$file_name.'.'.$file->getClientOriginalExtension());
                     if ($file) {
+                        $directory = base_path().'/'.env('UPLOADS_DIRECTION').'/users';
+                        $file_name = uniqid('triooz_');
+                        $file->move($directory,$file_name.'.'.$file->getClientOriginalExtension());
                         $update = UserDetail::query()->where('user_id', $add)->update(['image' => $file_name.'.'.$file->getClientOriginalExtension()]);
                         return redirect()->route('users.listing')->withErrors(['success, Kullanıcı başarıyla eklendi.']);
                     } else {
-                        return redirect()->route('users.listing')->withErrors(['warning, Kullanıcı başarıyla eklendi fakat resmi eklenemedi.']);
+                        return redirect()->route('users.listing')->withErrors(['warning, Kullanıcı başarıyla eklendi.']);
                     }
                 } else {
                     return redirect()->route('users.listing')->withErrors(['warning, Kullanıcı başarıyla eklendi fakat detayları eklenemedi.']);
