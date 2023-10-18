@@ -109,4 +109,8 @@ return [
         'title' => 'Takvim Mülakat ve İzin Görüntüleme Yetkisi',
         'description' => 'Takvime mülakat ve izin görüntüleme yetkisini barındırır.',
     ],
+    'dashboard_change_project' => [
+        'title' => 'Ana Sayfa Proje Değiştirme Yetkisi',
+        'description' => 'Ana sayfa proje değiştirme yetkisini barındırır.',
+    ],
 ];

@@ -99,23 +99,52 @@
                         <!--end::Page title-->
                         <!--begin::Action group-->
                         <div class="d-flex align-items-stretch overflow-auto pt-3 pt-lg-0">
-                            <form id="toolbar_form_date" method="get" class="d-flex align-items-stretch overflow-auto pt-3 pt-lg-0">
-                                <!--begin::Action wrapper-->
-                                <div class="d-flex align-items-center" style="margin-right: 1.25rem">
-                                    <!--begin::Label-->
-                                    <span class="fs-7 fw-bold text-gray-700 pe-4 text-nowrap d-none d-xxl-block">Proje:</span>
-                                    <!--end::Label-->
-                                    <!--begin::Select-->
-                                    <select onchange="$('#toolbar_form_date').submit();" class="form-control form-control-solid rounded rounded-end-0" name="project_id">
-                                        <option value="">Seçiniz...</option>
-                                        @foreach(\App\Models\Project::query()->where(['status' => 'active', 'type' => 'sale'])->get() as $projectx)
-                                            <option {{ $projectx->id == 2 && !request()->project_id ? "selected" : "" }} {{ request()->project_id == $projectx->id ? "selected" : "" }} value="{{ $projectx->id }}">{{ $projectx->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    <!--end::Select-->
-                                </div>
-                                <!--end::Action wrapper-->
-                            </form>
+
+                            @php $perms = tr_group_permission(tr_user_details(null, 'group_id')) @endphp
+                            @foreach(json_decode($perms, true) as $key2 => $value2)
+                                @if($key2 == "dashboard_change_project")
+                                    @if($value2 == true)
+                                        <form id="toolbar_form_date" method="get" class="d-flex align-items-stretch overflow-auto pt-3 pt-lg-0">
+                                            <!--begin::Action wrapper-->
+                                            <div class="d-flex align-items-center" style="margin-right: 1.25rem">
+                                                <!--begin::Label-->
+                                                <span class="fs-7 fw-bold text-gray-700 pe-4 text-nowrap d-none d-xxl-block">Proje:</span>
+                                                <!--end::Label-->
+                                                <!--begin::Select-->
+                                                <select onchange="$('#toolbar_form_date').submit();" class="form-control form-control-solid rounded rounded-end-0" name="project_id">
+                                                    <option value="">Seçiniz...</option>
+                                                    @foreach(\App\Models\Project::query()->where(['status' => 'active', 'type' => 'sale'])->get() as $projectx)
+                                                        <option {{ $projectx->id == 2 && !request()->project_id ? "selected" : "" }} {{ request()->project_id == $projectx->id ? "selected" : "" }} value="{{ $projectx->id }}">{{ $projectx->title }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <!--end::Select-->
+                                            </div>
+                                            <!--end::Action wrapper-->
+                                        </form>
+                                    @else
+                                        @if(tr_user_permission_check(null, "dashboard_change_project") == true)
+                                            <form id="toolbar_form_date" method="get" class="d-flex align-items-stretch overflow-auto pt-3 pt-lg-0">
+                                                <!--begin::Action wrapper-->
+                                                <div class="d-flex align-items-center" style="margin-right: 1.25rem">
+                                                    <!--begin::Label-->
+                                                    <span class="fs-7 fw-bold text-gray-700 pe-4 text-nowrap d-none d-xxl-block">Proje:</span>
+                                                    <!--end::Label-->
+                                                    <!--begin::Select-->
+                                                    <select onchange="$('#toolbar_form_date').submit();" class="form-control form-control-solid rounded rounded-end-0" name="project_id">
+                                                        <option value="">Seçiniz...</option>
+                                                        @foreach(\App\Models\Project::query()->where(['status' => 'active', 'type' => 'sale'])->get() as $projectx)
+                                                            <option {{ $projectx->id == 2 && !request()->project_id ? "selected" : "" }} {{ request()->project_id == $projectx->id ? "selected" : "" }} value="{{ $projectx->id }}">{{ $projectx->title }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <!--end::Select-->
+                                                </div>
+                                                <!--end::Action wrapper-->
+                                            </form>
+                                        @endif
+                                    @endif
+                                @endif
+                            @endforeach
+
                             <!--begin::Action wrapper-->
                             <div class="d-flex align-items-center">
                                 <div class="bullet bg-secondary h-35px w-1px mx-5"></div>

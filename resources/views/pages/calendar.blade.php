@@ -761,6 +761,38 @@ License: For each use you must have a valid license purchased only from above li
                                 popover: 'true',
                             },
                             @endforeach
+                        @else
+                            @if(tr_user_permission_check(null, "calendar_view_interview_and_offday") == true)
+                                @foreach($interviews as $row)
+                                {
+                                    id: '{{ $row->id }}',
+                                    title: '{{ $row->title }} ({{ tr_calendar_type_beautifier($row->type) }})',
+                                    start: '{{ $row->start_date }}{{ $row->start_time ? 'T'.$row->start_time : "" }}',
+                                    end: '{{ $row->end_date }}{{ $row->end_time ? 'T'.$row->end_time : "" }}',
+                                    className: "fc-event-success",
+                                    popover: 'true',
+                                    description: '{{ $row->description }}',
+                                    location: '{{ $row->location }}',
+                                    users: '{{ $row->users }}',
+                                    modal: '{{ $row->id }}_calendar_modal',
+                                },
+                                    @endforeach
+                                    @foreach($offday as $row)
+                                {
+                                    id: '{{ $row->id }}',
+                                    title: '{{ $row->name }} {{ $row->surname }}',
+                                    start: '{{ $row->date }}',
+                                    editable: false,
+                                    type: 'offday',
+                                    'className': 'offday',
+                                    color: '#CD5A5AFF',
+                                    deletehref: '{{ route('offdays.details.delete', ['id' => $row->id]) }}',
+                                    href: '{{ route('offdays.edit', ['id' => $row->id]) }}',
+                                    eksiksure: '@if($row->type == "date") Tam Gün @else {{ $row->time }} Dk. @endif',
+                                    popover: 'true',
+                                },
+                                @endforeach
+                            @endif
                         @endif
                     @endif
                 @endforeach

@@ -51,7 +51,7 @@ class TeamSales extends Controller
             ->orderBy('sales.created_at', 'DESC')
             ->get();
 
-        $products = Product::query()->where(['status', 'active', 'project_id' => tr_user_details(null, 'project_id')])->get();
+        $products = Product::query()->where(['status' => 'active', 'project_id' => tr_user_details(null, 'project_id')])->get();
         $users = User::query()
             ->select('users.*')
             ->join('user_details', 'user_details.user_id', '=', 'users.id')
