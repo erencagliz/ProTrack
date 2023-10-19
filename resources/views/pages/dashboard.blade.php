@@ -442,96 +442,101 @@
                                     <!--end::Card header-->
                                     <!--begin::Card body-->
                                     <div class="card-body p-9 pt-5">
-                                        <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
-                                            <!--begin::Carousel-->
-                                            <div class="carousel-inner">
-                                                @php $sayi1 = 0; @endphp
-                                                @foreach($targets as $target)
-                                                    @php
-                                                        $sayi1++;
-                                                        if ($target->type == 'project') {
-                                                            $sales = tr_sales_between_dates([
-                                                                'start_date' => date('Y-m-d 00:00:00', strtotime($target->start_date)),
-                                                                'end_date' => date('Y-m-d 23:59:59', strtotime($target->end_date)),
-                                                                'returns' => $target->target_type,
-                                                                'project_id' => $target->project_id,
-                                                                'type' => 'project',
-                                                            ]);
-                                                        } else {
-                                                            $sales = tr_sales_between_dates([
-                                                                'start_date' => date('Y-m-d 00:00:00', strtotime($target->start_date)),
-                                                                'end_date' => date('Y-m-d 23:59:59', strtotime($target->end_date)),
-                                                                'returns' => $target->target_type,
-                                                                'office_id' => $target->office_id,
-                                                                'project_id' => $target->project_id,
-                                                                'type' => 'office',
-                                                            ]);
-                                                        }
-                                                    @endphp
-                                                    <!--begin::Item-->
-                                                    <div class="carousel-item @if($sayi1 == 1) active @endif">
-                                                        <!--begin::Wrapper-->
-                                                        <div class="d-flex flex-wrap">
-                                                            <!--begin::Chart-->
-                                                            <div class="position-relative d-flex flex-center h-175px w-175px">
-                                                                <div class="position-absolute translate-middle start-50 top-50 d-flex flex-column flex-center">
-                                                                    <span class="fs-2qx fw-bold">{{ $target->target }}</span>
-                                                                    <span class="fs-6 fw-semibold text-gray-400">Hedef</span>
-                                                                </div>
-                                                                <canvas id="chartproje{{ $target->id }}"></canvas>
-                                                            </div>
-                                                            <!--end::Chart-->
-                                                            <!--begin::Labels-->
-                                                            <div class="d-flex flex-column justify-content-center flex-row-fluid p-5">
-                                                                <!--begin::Label-->
-                                                                <div class="d-flex fs-6 fw-semibold align-items-center mb-3">
-                                                                    <h3 class="d-flex justify-content-center">
-                                                                        @if($target->type == 'team')
-                                                                            Takım Hedefi <span class="badge badge-primary mx-2">{{ \Carbon\Carbon::createFromDate($target->start_date)->translatedFormat('j F') }} - {{ \Carbon\Carbon::createFromDate($target->end_date)->translatedFormat('j F') }}</span> <span class="badge badge-primary">{{ tr_office_title($target->office_id) }}</span>
-                                                                        @elseif($target->type == 'project')
-                                                                            Proje Hedefi <span class="badge badge-primary mx-2">{{ \Carbon\Carbon::createFromDate($target->start_date)->translatedFormat('j F') }} - {{ \Carbon\Carbon::createFromDate($target->end_date)->translatedFormat('j F') }}</span>
-                                                                        @endif
-                                                                    </h3>
-                                                                </div>
-                                                                <!--end::Label-->
-                                                                <!--begin::Label-->
-                                                                <div class="d-flex fs-6 fw-semibold align-items-center mb-3">
-                                                                    <div class="bullet bg-success me-3"></div>
-                                                                    <div class="text-gray-400">Yapılan Satış Sayısı</div>
-                                                                    <div class="ms-auto fw-bold text-gray-700">{{ $sales }}</div>
-                                                                </div>
-                                                                <!--end::Label-->
-                                                                <!--begin::Label-->
-                                                                <div class="d-flex fs-6 fw-semibold align-items-center mb-3">
-                                                                    <div class="bullet bg-custom-gray me-3"></div>
-                                                                    <div class="text-gray-400">Kalan Satış Sayısı</div>
-                                                                    <div class="ms-auto fw-bold text-gray-700">{{ $target->target - $sales }}</div>
-                                                                </div>
-                                                                <!--end::Label-->
-                                                            </div>
-                                                            <!--end::Labels-->
-                                                        </div>
-                                                        <!--end::Wrapper-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                @endforeach
-                                            </div>
-                                            <!--end::Carousel-->
 
-                                            <!--begin::Heading-->
-                                            <div class="d-flex align-items-center justify-content-center flex-wrap">
-                                                <!--begin::Carousel Indicators-->
-                                                <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
-                                                    @php $sayi2 = -1; @endphp
+                                        @if($targets->count() == 0)
+                                            <div class="fs-6 fw-semibold text-danger">Hiç hedef yok.</div>
+                                        @else
+                                            <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
+                                                <!--begin::Carousel-->
+                                                <div class="carousel-inner">
+                                                    @php $sayi1 = 0; @endphp
                                                     @foreach($targets as $target)
-                                                        @php $sayi2++; @endphp
-                                                        <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="{{ $sayi2 }}" class="ms-1 @if($sayi2 == 0) active @endif"></li>
+                                                        @php
+                                                            $sayi1++;
+                                                            if ($target->type == 'project') {
+                                                                $sales = tr_sales_between_dates([
+                                                                    'start_date' => date('Y-m-d 00:00:00', strtotime($target->start_date)),
+                                                                    'end_date' => date('Y-m-d 23:59:59', strtotime($target->end_date)),
+                                                                    'returns' => $target->target_type,
+                                                                    'project_id' => $target->project_id,
+                                                                    'type' => 'project',
+                                                                ]);
+                                                            } else {
+                                                                $sales = tr_sales_between_dates([
+                                                                    'start_date' => date('Y-m-d 00:00:00', strtotime($target->start_date)),
+                                                                    'end_date' => date('Y-m-d 23:59:59', strtotime($target->end_date)),
+                                                                    'returns' => $target->target_type,
+                                                                    'office_id' => $target->office_id,
+                                                                    'project_id' => $target->project_id,
+                                                                    'type' => 'office',
+                                                                ]);
+                                                            }
+                                                        @endphp
+                                                            <!--begin::Item-->
+                                                        <div class="carousel-item @if($sayi1 == 1) active @endif">
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex flex-wrap">
+                                                                <!--begin::Chart-->
+                                                                <div class="position-relative d-flex flex-center h-175px w-175px">
+                                                                    <div class="position-absolute translate-middle start-50 top-50 d-flex flex-column flex-center">
+                                                                        <span class="fs-2qx fw-bold">{{ $target->target }}</span>
+                                                                        <span class="fs-6 fw-semibold text-gray-400">Hedef</span>
+                                                                    </div>
+                                                                    <canvas id="chartproje{{ $target->id }}"></canvas>
+                                                                </div>
+                                                                <!--end::Chart-->
+                                                                <!--begin::Labels-->
+                                                                <div class="d-flex flex-column justify-content-center flex-row-fluid p-5">
+                                                                    <!--begin::Label-->
+                                                                    <div class="d-flex fs-6 fw-semibold align-items-center mb-3">
+                                                                        <h3 class="d-flex justify-content-center">
+                                                                            @if($target->type == 'team')
+                                                                                Takım Hedefi <span class="badge badge-primary mx-2">{{ \Carbon\Carbon::createFromDate($target->start_date)->translatedFormat('j F') }} - {{ \Carbon\Carbon::createFromDate($target->end_date)->translatedFormat('j F') }}</span> <span class="badge badge-primary">{{ tr_office_title($target->office_id) }}</span>
+                                                                            @elseif($target->type == 'project')
+                                                                                Proje Hedefi <span class="badge badge-primary mx-2">{{ \Carbon\Carbon::createFromDate($target->start_date)->translatedFormat('j F') }} - {{ \Carbon\Carbon::createFromDate($target->end_date)->translatedFormat('j F') }}</span>
+                                                                            @endif
+                                                                        </h3>
+                                                                    </div>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Label-->
+                                                                    <div class="d-flex fs-6 fw-semibold align-items-center mb-3">
+                                                                        <div class="bullet bg-success me-3"></div>
+                                                                        <div class="text-gray-400">Yapılan Satış Sayısı</div>
+                                                                        <div class="ms-auto fw-bold text-gray-700">{{ $sales }}</div>
+                                                                    </div>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Label-->
+                                                                    <div class="d-flex fs-6 fw-semibold align-items-center mb-3">
+                                                                        <div class="bullet bg-custom-gray me-3"></div>
+                                                                        <div class="text-gray-400">Kalan Satış Sayısı</div>
+                                                                        <div class="ms-auto fw-bold text-gray-700">{{ $target->target - $sales }}</div>
+                                                                    </div>
+                                                                    <!--end::Label-->
+                                                                </div>
+                                                                <!--end::Labels-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </div>
+                                                        <!--end::Item-->
                                                     @endforeach
-                                                </ol>
-                                                <!--end::Carousel Indicators-->
+                                                </div>
+                                                <!--end::Carousel-->
+
+                                                <!--begin::Heading-->
+                                                <div class="d-flex align-items-center justify-content-center flex-wrap">
+                                                    <!--begin::Carousel Indicators-->
+                                                    <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+                                                        @php $sayi2 = -1; @endphp
+                                                        @foreach($targets as $target)
+                                                            @php $sayi2++; @endphp
+                                                            <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="{{ $sayi2 }}" class="ms-1 @if($sayi2 == 0) active @endif"></li>
+                                                        @endforeach
+                                                    </ol>
+                                                    <!--end::Carousel Indicators-->
+                                                </div>
+                                                <!--end::Heading-->
                                             </div>
-                                            <!--end::Heading-->
-                                        </div>
+                                        @endif
                                     </div>
                                     <!--end::Card body-->
                                 </div>
