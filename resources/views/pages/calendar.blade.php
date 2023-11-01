@@ -688,11 +688,12 @@ License: For each use you must have a valid license purchased only from above li
             }
         },
         events: [
+            @php $this_year = date('Y') @endphp
             @foreach($birthdays as $row)
             {
                 id: '{{ $row->id }}',
                 title: "{{ $row->name.' '.$row->surname }}",
-                start: "{{ date('2022-m-d', strtotime($row->birthdate)) }}",
+                start: "{{ date($this_year.'-m-d', strtotime($row->birthdate)) }}",
                 editable: false,
                 type: 'birthday',
                 color: '#6a5acd',
