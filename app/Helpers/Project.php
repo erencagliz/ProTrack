@@ -7,9 +7,14 @@
 
 if (! function_exists('tr_project_type')) {
     function tr_project_type ($project_id) {
-        $project = \App\Models\Project::query()->select(['type'])->where(['id' => $project_id])->first();
-        if ($project) {
-            return $project->type;
+        if (cache()->has('tr_project_type_'.$project_id)) {
+            return cache()->get('tr_project_type_'.$project_id);
+        } else {
+            $project = \App\Models\Project::query()->select(['type'])->where(['id' => $project_id])->first();
+            if ($project) {
+                cache()->put('tr_project_type_'.$project_id, $project->type, 60*24);
+                return $project->type;
+            }
         }
     }
 }
@@ -21,9 +26,14 @@ if (! function_exists('tr_project_type')) {
 
 if (! function_exists('tr_project_title')) {
     function tr_project_title ($project_id) {
-        $project = \App\Models\Project::query()->select(['title'])->where(['id' => $project_id])->first();
-        if ($project) {
-            return $project->title;
+        if (cache()->has('tr_project_title_'.$project_id)) {
+            return cache()->get('tr_project_title_'.$project_id);
+        } else {
+            $project = \App\Models\Project::query()->select(['title'])->where(['id' => $project_id])->first();
+            if ($project) {
+                cache()->put('tr_project_title_'.$project_id, $project->title, 60*24);
+                return $project->title;
+            }
         }
     }
 }

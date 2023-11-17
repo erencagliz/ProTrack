@@ -7,9 +7,14 @@
 
 if (! function_exists('tr_office_title')) {
     function tr_office_title ($office_id) {
-        $office = \App\Models\Office::query()->select(['title'])->where(['id' => $office_id])->first();
-        if ($office) {
-            return $office->title;
+        if (cache()->has('tr_office_title_'.$office_id)) {
+            return cache()->get('tr_office_title_'.$office_id);
+        } else {
+            $office = \App\Models\Office::query()->select(['title'])->where(['id' => $office_id])->first();
+            if ($office) {
+                cache()->put('tr_office_title_'.$office_id, $office->title, 60*24);
+                return $office->title;
+            }
         }
     }
 }

@@ -59,7 +59,12 @@ if (! function_exists('tr_group_permission_check')) {
 
 if (! function_exists('tr_group_permission')) {
     function tr_group_permission ($group_id) {
-        $group = \App\Models\UserGroup::query()->select(['permissions'])->where(['id' => $group_id])->first();
-        return $group->permissions;
+        if (cache()->has('group_'.$group_id.'_permissions')) {
+            return cache()->get('group_'.$group_id.'_permissions');
+        } else {
+            $group = \App\Models\UserGroup::query()->select(['permissions'])->where(['id' => $group_id, 'status' => 'active'])->first();
+            cache()->put('group_'.$group_id.'_permissions', $group->permission);
+            return $group->permissions;
+        }
     }
 }
