@@ -1,4 +1,4 @@
-# ProTrack
+# ProTrack Project Tracking System Laravel
 
 ProTrack is a comprehensive project and personnel management system designed to streamline sales tracking, team performance, and administrative tasks within organizations. Built with Laravel and a custom role management system, Trapp offers a powerful and intuitive interface for managing projects, sales, and human resources.
 
