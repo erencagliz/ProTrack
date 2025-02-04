@@ -82,12 +82,6 @@ php artisan serve
 ## Custom Role Management
 ProTrack features a custom role management system, allowing administrators to define roles and assign specific permissions to users. This flexible structure ensures secure and efficient access control tailored to organizational needs.
 
-## Contributing
-Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request with detailed information about your changes.
-
-## License
-This project is licensed under the MIT License.
-
 ---
 
 For any questions or support, feel free to reach out to the development team.
