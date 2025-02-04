@@ -7,7 +7,7 @@
 
 if (! function_exists('tr_favicon')) {
     function tr_favicon () {
-        return asset('trapp/uploads/logos/triooz_favicon.png');
+        return asset('trapp/uploads/logos/cagli_favicon.png');
     }
 }
 
@@ -18,7 +18,7 @@ if (! function_exists('tr_favicon')) {
 
 if (! function_exists('tr_light_logo')) {
     function tr_light_logo () {
-        return asset('trapp/uploads/logos/triooz_light.png');
+        return asset('trapp/uploads/logos/cagli_light.png');
     }
 }
 
@@ -29,7 +29,7 @@ if (! function_exists('tr_light_logo')) {
 
 if (! function_exists('tr_dark_logo')) {
     function tr_dark_logo () {
-        return asset('trapp/uploads/logos/triooz_dark.png');
+        return asset('trapp/uploads/logos/cagli_dark.png');
     }
 }
 

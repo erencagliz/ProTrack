@@ -13,7 +13,7 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 <!--begin::Head-->
 <head><base href=""/>
-    <title>İnsan Kaynakları Düzenle | Triooz</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>İnsan Kaynakları Düzenle | Çağlı</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="{{ tr_favicon() }}" />
     <!--begin::Fonts(mandatory for all pages)-->
@@ -294,10 +294,10 @@ License: For each use you must have a valid license purchased only from above li
                                                 <option {{ $human_resource->source == "phone" ? "selected" : "" }} value="phone">Telefon</option>
                                                 <option {{ $human_resource->source == "google_form" ? "selected" : "" }} value="google_form">Google Form</option>
                                                 <option {{ $human_resource->source == "google_ads" ? "selected" : "" }} value="google_ads">Google Ads</option>
-                                                <option {{ $human_resource->source == "facebook_evomiles_potential" ? "selected" : "" }} value="facebook_evomiles_potential">Facebook Evomiles Potansiyel</option>
-                                                <option {{ $human_resource->source == "facebook_triooz_potential" ? "selected" : "" }} value="facebook_triooz_potential">Facebook Triooz Potansiyel</option>
-                                                <option {{ $human_resource->source == "facebook_evomiles_messenger" ? "selected" : "" }} value="facebook_evomiles_messenger">Facebook Evomiles Messenger</option>
-                                                <option {{ $human_resource->source == "facebook_triooz_messenger" ? "selected" : "" }} value="facebook_triooz_messenger">Facebook Triooz Messenger</option>
+                                                <option {{ $human_resource->source == "facebook_wynd_potential" ? "selected" : "" }} value="facebook_wynd_potential">Facebook Wynd Potansiyel</option>
+                                                <option {{ $human_resource->source == "facebook_cagli_potential" ? "selected" : "" }} value="facebook_cagli_potential">Facebook Çağlı Potansiyel</option>
+                                                <option {{ $human_resource->source == "facebook_wynd_messenger" ? "selected" : "" }} value="facebook_wynd_messenger">Facebook Wynd Messenger</option>
+                                                <option {{ $human_resource->source == "facebook_cagli_messenger" ? "selected" : "" }} value="facebook_cagli_messenger">Facebook Çağlı Messenger</option>
                                             </select>
                                             <!--end::Select2-->
                                             <!--end::Input-->
@@ -485,7 +485,7 @@ License: For each use you must have a valid license purchased only from above li
                                                                     <div class="symbol symbol-circle symbol-40px overflow-hidden me-3">
                                                                         <a href="http://localhost:8000/users/edit/7">
                                                                             <div class="symbol-label">
-                                                                                <img src="http://localhost:8000/trapp/uploads/triooz_63aaf680be6d9.jpg" alt="Emma Smith" class="w-100">
+                                                                                <img src="http://localhost:8000/trapp/uploads/cagli_63aaf680be6d9.jpg" alt="Emma Smith" class="w-100">
                                                                             </div>
                                                                         </a>
                                                                     </div>

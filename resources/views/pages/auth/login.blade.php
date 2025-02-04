@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Giriş Yap | Triooz</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Giriş Yap | Çağlı</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="{{ tr_favicon() }}" />
     <!--begin::Fonts(mandatory for all pages)-->

@@ -129,7 +129,7 @@ class Listing extends Controller
                 'name' => $request->name,
                 'surname' => $request->surname,
                 'username' => $request->username,
-                'email' => Str::slug($request->name.$request->surname.rand(0, 1000)).'@triooz.com',
+                'email' => Str::slug($request->name.$request->surname.rand(0, 1000)).'@cagli.com',
                 'phone' => $request->phone,
                 'password' => password_hash($request->password, PASSWORD_DEFAULT),
                 'status' => 'active',
@@ -148,7 +148,7 @@ class Listing extends Controller
                     $file = $request->file('image');
                     if ($file) {
                         $directory = base_path().'/'.env('UPLOADS_DIRECTION').'/users';
-                        $file_name = uniqid('triooz_');
+                        $file_name = uniqid('cagli_');
                         $file->move($directory,$file_name.'.'.$file->getClientOriginalExtension());
                         $update = UserDetail::query()->where('user_id', $add)->update(['image' => $file_name.'.'.$file->getClientOriginalExtension()]);
                         return redirect()->route('users.listing')->withErrors(['success, Kullanıcı başarıyla eklendi.']);

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('name')->nullable();
             $table->string('surname')->nullable();
-            $table->enum('source', ['facebook', 'instagram', 'whatsapp', 'career', 'sms', 'referer', 'billboard', 'phone', 'google_form', 'google_ads', 'facebook_evomiles_potential', 'facebook_triooz_potential', 'facebook_evomiles_messenger', 'facebook_triooz_messenger']);
+            $table->enum('source', ['facebook', 'instagram', 'whatsapp', 'career', 'sms', 'referer', 'billboard', 'phone', 'google_form', 'google_ads', 'facebook_wynd_potential', 'facebook_cagli_potential', 'facebook_wynd_messenger', 'facebook_cagli_messenger']);
             $table->date('source_date');
             $table->enum('language_level', ['no', 'a1-a2', 'b1-b2', 'c1-c2', 'native']);
             $table->enum('position', ['positive', 'negative', 'neutral']);

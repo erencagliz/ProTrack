@@ -120,13 +120,6 @@ CREATE TABLE `files` (
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Tablo döküm verisi `files`
---
-
-INSERT INTO `files` (`id`, `user_id`, `title`, `file`, `status`, `custom`, `created_at`, `updated_at`) VALUES
-(1, 1, 'deneme', '63b43d2e4c5ff.diz', 'passive', NULL, '2023-01-03 17:35:26', '2023-01-03 17:35:41');
-
 -- --------------------------------------------------------
 
 --
@@ -138,7 +131,7 @@ CREATE TABLE `human_resources` (
   `phone` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
-  `source` enum('facebook','instagram','whatsapp','career','sms','referer','billboard','phone','google_form','google_ads','facebook_evomiles_potential','facebook_triooz_potential','facebook_evomiles_messenger','facebook_triooz_messenger') NOT NULL,
+  `source` enum('facebook','instagram','whatsapp','career','sms','referer','billboard','phone','google_form','google_ads','facebook_wynd_potential','facebook_cagli_potential','facebook_wynd_messenger','facebook_cagli_messenger') NOT NULL,
   `source_date` date NOT NULL,
   `language_level` enum('no','a1-a2','b1-b2','c1-c2','native') NOT NULL,
   `position` enum('positive','negative','neutral') NOT NULL,
@@ -157,8 +150,8 @@ CREATE TABLE `human_resources` (
 --
 
 INSERT INTO `human_resources` (`id`, `phone`, `name`, `surname`, `source`, `source_date`, `language_level`, `position`, `position_condition`, `added_by`, `owner_id`, `notes`, `status`, `custom`, `created_at`, `updated_at`) VALUES
-(2, '+90 (532) 391-1449', 'Eren', 'Çağlı', 'instagram', '2023-01-02', 'c1-c2', 'negative', 'work_hours', 1, 7, NULL, 'passive', NULL, '2023-01-02 15:44:15', '2023-01-03 15:08:27'),
-(3, '+90 (545) 277-2946', 'Eren', 'Çağlı', 'instagram', '2023-01-05', 'b1-b2', 'neutral', 'work_hours', 1, 7, '[{\"created_at\":\"2023-01-04 13:50:45\",\"added_by\":\"1\",\"note\":\"zsfsfsf\",\"type\":\"message\",\"date\":\"2023-01-04\"}]', 'active', NULL, '2023-01-04 13:50:34', '2023-01-04 13:51:45');
+(2, '+90 (000) 000-0000', 'Eren', 'Çağlı', 'instagram', '2023-01-02', 'c1-c2', 'negative', 'work_hours', 1, 7, NULL, 'passive', NULL, '2023-01-02 15:44:15', '2023-01-03 15:08:27'),
+(3, '+90 (000) 000-0000', 'Eren', 'Çağlı', 'instagram', '2023-01-05', 'b1-b2', 'neutral', 'work_hours', 1, 7, '[{\"created_at\":\"2023-01-04 13:50:45\",\"added_by\":\"1\",\"note\":\"zsfsfsf\",\"type\":\"message\",\"date\":\"2023-01-04\"}]', 'active', NULL, '2023-01-04 13:50:34', '2023-01-04 13:51:45');
 
 -- --------------------------------------------------------
 
@@ -236,8 +229,8 @@ CREATE TABLE `offices` (
 --
 
 INSERT INTO `offices` (`id`, `title`, `address`, `status`, `custom`, `created_at`, `updated_at`) VALUES
-(1, 'Brandium Residence', 'Küçükbakkalköy Mahallesi Dudullu Caddesi No:23 Brandium Residance R2 Blok K:29 D:, D:266, 34750 Ataşehir/İstanbul', 'active', NULL, '2022-12-06 17:49:53', '2022-12-28 16:13:00'),
-(2, 'Kuriş Kule', 'Cevizli, D-100 Güney Yanyolu, No:2, Kat:11, 34865 Kartal/İstanbul', 'active', NULL, '2022-12-06 17:50:22', '2022-12-23 16:56:24');
+(1, 'Ataşehir', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 'active', NULL, '2022-12-06 17:49:53', '2022-12-28 16:13:00'),
+(2, 'Kartal', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 'active', NULL, '2022-12-06 17:50:22', '2022-12-23 16:56:24');
 
 -- --------------------------------------------------------
 
@@ -279,8 +272,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `name`, `point`, `project_id`, `status`, `custom`, `created_at`, `updated_at`) VALUES
-(1, 'Mivolta', 'Strom', '1', 1, 'active', NULL, '2022-12-07 15:05:46', '2022-12-28 09:38:31'),
-(2, 'Mivolta', 'Gas', '1', 1, 'active', NULL, '2022-12-07 15:05:46', NULL);
+(1, 'Lorem', 'Ipsum', '1', 1, 'active', NULL, '2022-12-07 15:05:46', '2022-12-28 09:38:31'),
+(2, 'Dolor', 'Sit', '1', 1, 'active', NULL, '2022-12-07 15:05:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -306,14 +299,8 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `title`, `description`, `image`, `preffered_counter`, `type`, `status`, `custom`, `created_at`, `updated_at`) VALUES
-(1, 'Mivolta', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, 'quantity', 'sale', 'active', NULL, '2022-12-06 17:51:31', '2022-12-27 08:29:44'),
-(2, 'ABO', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, 'point', 'sale', 'active', NULL, '2022-12-06 17:51:31', '2022-12-23 19:57:13'),
-(3, 'Fast ABO', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, 'quantity', 'sale', 'active', NULL, '2022-12-06 17:51:31', '2022-12-23 19:57:16'),
-(4, 'Immobilie', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, 'quantity', 'sale', 'active', NULL, '2022-12-06 17:51:31', '2022-12-23 19:57:11'),
-(5, 'Spafoni', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, NULL, 'normal', 'active', NULL, '2022-12-06 17:51:31', NULL),
-(6, 'Ofis Hizmetleri', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, NULL, 'normal', 'active', NULL, '2022-12-06 17:51:31', NULL),
-(7, 'Yönetim', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, NULL, 'normal', 'active', NULL, '2022-12-06 17:51:31', NULL),
-(8, 'Kalite Kontrol', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, 'quantity', 'sale', 'active', NULL, '2022-12-06 17:51:31', '2022-12-13 18:32:38');
+(1, 'Lorem', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, 'quantity', 'sale', 'active', NULL, '2022-12-06 17:51:31', '2022-12-27 08:29:44'),
+(2, 'Ipsum', 'Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.', NULL, 'point', 'sale', 'active', NULL, '2022-12-06 17:51:31', '2022-12-23 19:57:13');
 
 -- --------------------------------------------------------
 
@@ -334,15 +321,6 @@ CREATE TABLE `sales` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Tablo döküm verisi `sales`
---
-
-INSERT INTO `sales` (`id`, `user_id`, `office_id`, `project_id`, `product_id`, `point`, `quantity`, `status`, `custom`, `created_at`, `updated_at`) VALUES
-(14, 1, 1, 1, 1, '1', '1', 'active', '{\"iban_verify\":true,\"sms_verify\":false,\"customer_phone\":null}', '2023-01-04 00:00:00', '2023-01-04 10:27:05'),
-(15, 1, 1, 1, 1, '15', '15', 'active', '{\"iban_verify\":true,\"sms_verify\":false,\"customer_phone\":null}', '2022-11-01 00:00:00', '2023-01-04 10:27:05'),
-(16, 1, 1, 1, 1, '1', '1', 'passive', '{\"iban_verify\":true,\"sms_verify\":true,\"customer_phone\":null}', '2023-01-04 13:45:02', '2023-01-04 13:46:17');
 
 -- --------------------------------------------------------
 
@@ -367,13 +345,6 @@ CREATE TABLE `targets` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Tablo döküm verisi `targets`
---
-
-INSERT INTO `targets` (`id`, `type`, `office_id`, `project_id`, `user_id`, `target_type`, `start_date`, `end_date`, `target`, `target_status`, `target_status_date`, `status`, `custom`, `created_at`, `updated_at`) VALUES
-(1, 'project', NULL, 1, NULL, 'quantity', '2023-01-01', '2023-01-31', 1000, 'continues', '2023-01-03 18:33:10', 'active', NULL, '2023-01-03 18:31:11', '2023-01-03 18:33:10');
 
 -- --------------------------------------------------------
 
@@ -422,9 +393,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `username`, `email`, `phone`, `password`, `last_seen`, `remember_token`, `status`, `custom`, `created_at`, `updated_at`) VALUES
-(1, 'Eren', 'Çağlı', 'erencagli', 'erencagliz@hotmail.com', '5452772946', '$2y$10$NF4XBbU2.oXqy6SmD2oYiOfD6hzxN9DG1J0xfC24OrTi4jACqSRcO', '2023-01-31 08:18:44', 'hOMFSfDiCSbdpDeYwetcPxoqvlzPgxN7ijo7eeoZ9X3HRxBtVSNYNaWzw84S', 'active', NULL, '2022-12-06 19:24:14', '2023-01-31 11:18:44'),
-(2, 'İbrahim', 'Yılmaz', 'ibrahimyilmaz', NULL, '5452772946', '$2y$10$rMbklfUwOTjkCw4/0SzJVuRT0.hXpqnWukHDxEHfqwyyqEhRQoQBu', '2022-12-01 09:18:26', NULL, 'active', NULL, '2022-12-07 19:45:02', '2022-12-27 13:43:18'),
-(7, 'Rukiye', 'Kurt', 'rukiyekurt', NULL, '5452772946', '$2y$10$IY9cOzvj5T.blgTwi0aOf.8SWHBLJoI5cA1ckM6sIuTJUKuCBXDby', '2022-12-01 09:18:26', NULL, 'active', NULL, '2022-12-12 15:43:59', '2023-01-02 15:34:49');
+(1, 'Eren', 'Çağlı', 'erencagli', 'erencglz@icloud.com', '0000000000', '$2y$10$N.CdYpbQgKSYIaPxG0iv/uFWq7u6cn3XtG8cgpjrUAilNc4URcEwa', '2023-01-31 08:18:44', 'hOMFSfDiCSbdpDeYwetcPxoqvlzPgxN7ijo7eeoZ9X3HRxBtVSNYNaWzw84S', 'active', NULL, '2022-12-06 19:24:14', '2023-01-31 11:18:44');
 
 -- --------------------------------------------------------
 
@@ -456,9 +425,7 @@ CREATE TABLE `user_details` (
 --
 
 INSERT INTO `user_details` (`id`, `user_id`, `password`, `image`, `project_id`, `group_id`, `office_id`, `birthdate`, `identity`, `work_start_date`, `work_end_date`, `address`, `status`, `custom`, `created_at`, `updated_at`) VALUES
-(1, 1, '123', 'triooz_63aaf6488bd04.jpg', 1, 1, 1, '2004-05-03', '25250074410', '2020-10-10', NULL, 'Esatpaşa Mh, Başkomutan Cd, Yapraklı Sk, Ağa Apt (18), Daire 4', 'active', '[]', '2022-12-06 19:25:41', '2023-01-03 13:21:05'),
-(2, 2, '123', 'triooz_63aaf6769a7be.jpg', 1, 1, 1, '1989-05-24', '25096060110', '2018-03-09', NULL, 'Cevizli, D-100 Güney Yanyolu, NO:2, KAT:11, Kartal / İstanbul', 'active', '[]', '2022-12-06 19:25:41', '2022-12-27 13:43:18'),
-(5, 7, '123', 'triooz_63aaf680be6d9.jpg', 2, 4, 1, '2022-12-01', '25250074410', '2022-12-13', NULL, 'Cevizli, D-100 Güney Yanyolu, NO:2, KAT:11, Kartal / İstanbul', 'active', '[]', '2022-12-12 15:43:59', '2023-01-02 15:34:49');
+(1, 1, '123', 'cagli_63aaf6488bd04.jpg', 1, 1, 1, '2004-05-03', '00000000000', '2020-10-10', NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam commodo, erat quis convallis vulputate, ante felis pharetra nunc, eget hendrerit nunc arcu porta nisl.', 'active', '[]', '2022-12-06 19:25:41', '2023-01-03 13:21:05'),
 
 -- --------------------------------------------------------
 

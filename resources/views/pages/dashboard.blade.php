@@ -2,7 +2,7 @@
 <html lang="en">
 <!--begin::Head-->
 <head><base href=""/>
-    <title>Ana Sayfa | Triooz</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ana Sayfa | Çağlı</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="{{ tr_favicon() }}" />
     <!--begin::Fonts(mandatory for all pages)-->

@@ -13,7 +13,7 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 <!--begin::Head-->
 <head>
-    <title>İnsan Kaynakları | Triooz</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>İnsan Kaynakları | Çağlı</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="{{ tr_favicon() }}" />
     <!--begin::Fonts(mandatory for all pages)-->
@@ -359,10 +359,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <option {{ $_GET['source'] == 'phone' ? 'selected' : '' }} value="phone">Telefon</option>
                                                             <option {{ $_GET['source'] == 'google_form' ? 'selected' : '' }} value="google_form">Google Form</option>
                                                             <option {{ $_GET['source'] == 'google_ads' ? 'selected' : '' }} value="google_ads">Google Ads</option>
-                                                            <option {{ $_GET['source'] == 'facebook_evomiles_potential' ? 'selected' : '' }} value="facebook_evomiles_potential">Facebook Evomiles Potansiyel</option>
-                                                            <option {{ $_GET['source'] == 'facebook_triooz_potential' ? 'selected' : '' }} value="facebook_triooz_potential">Facebook Triooz Potansiyel</option>
-                                                            <option {{ $_GET['source'] == 'facebook_evomiles_messenger' ? 'selected' : '' }} value="facebook_evomiles_messenger">Facebook Evomiles Messenger</option>
-                                                            <option {{ $_GET['source'] == 'facebook_triooz_messenger' ? 'selected' : '' }} value="facebook_triooz_messenger">Facebook Triooz Messenger</option>
+                                                            <option {{ $_GET['source'] == 'facebook_wynd_potential' ? 'selected' : '' }} value="facebook_wynd_potential">Facebook Wynd Potansiyel</option>
+                                                            <option {{ $_GET['source'] == 'facebook_cagli_potential' ? 'selected' : '' }} value="facebook_cagli_potential">Facebook Çağlı Potansiyel</option>
+                                                            <option {{ $_GET['source'] == 'facebook_wynd_messenger' ? 'selected' : '' }} value="facebook_wynd_messenger">Facebook Wynd Messenger</option>
+                                                            <option {{ $_GET['source'] == 'facebook_cagli_messenger' ? 'selected' : '' }} value="facebook_cagli_messenger">Facebook Çağlı Messenger</option>
                                                         </select>
                                                         <!--end::Select2-->
                                                     </div>
@@ -481,10 +481,10 @@ License: For each use you must have a valid license purchased only from above li
                                                                     <option value="phone">Telefon</option>
                                                                     <option value="google_form">Google Form</option>
                                                                     <option value="google_ads">Google Ads</option>
-                                                                    <option value="facebook_evomiles_potential">Facebook Evomiles Potansiyel</option>
-                                                                    <option value="facebook_triooz_potential">Facebook Triooz Potansiyel</option>
-                                                                    <option value="facebook_evomiles_messenger">Facebook Evomiles Messenger</option>
-                                                                    <option value="facebook_triooz_messenger">Facebook Triooz Messenger</option>
+                                                                    <option value="facebook_wynd_potential">Facebook Wynd Potansiyel</option>
+                                                                    <option value="facebook_cagli_potential">Facebook Çağlı Potansiyel</option>
+                                                                    <option value="facebook_wynd_messenger">Facebook Wynd Messenger</option>
+                                                                    <option value="facebook_cagli_messenger">Facebook Çağlı Messenger</option>
                                                                 </select>
                                                                 <!--end::Select2-->
                                                                 <!--end::Input-->

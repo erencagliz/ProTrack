@@ -127,7 +127,7 @@ class Profile extends Controller
                     $file = $request->file('image');
                     if ($file) {
                         $directory = base_path().'/'.env('UPLOADS_DIRECTION').'/';
-                        $file_name = uniqid('triooz_');
+                        $file_name = uniqid('cagli_');
                         $file->move($directory,$file_name.'.'.$file->getClientOriginalExtension());
                         if ($file) {
                             $update = UserDetail::query()->where('user_id', $request->user_id)->update(['image' => $file_name.'.'.$file->getClientOriginalExtension()]);
